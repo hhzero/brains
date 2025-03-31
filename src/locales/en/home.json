@@ -1,0 +1,47 @@
+{
+    "heroTitle": "Train Your Brain, Boost Your Mind",
+    "heroDescription": "Challenge your cognitive abilities with scientifically-designed brain games. Improve memory, attention, logic, language, and mathematics skills with regular practice.",
+    "heroImageAlt": "Person exercising their brain with cognitive games",
+    "startTraining": "Start Training",
+    "learnMore": "Learn More",
+    
+    "exploreGames": "Explore Brain Games",
+    "categoriesDescription": "Discover diverse games designed to exercise different cognitive abilities",
+    "exploreCategory": "Explore Games",
+    
+    "whyChooseUs": "Why Choose Our Platform",
+    "featuresDescription": "Science-backed brain training tailored to your needs",
+    
+    "personalizedTraining": "Personalized Training",
+    "personalizedDescription": "Training plans customized to your cognitive profile and learning pace",
+    
+    "scientificMethod": "Scientific Approach",
+    "scientificDescription": "Games designed based on cognitive science research and proven methods",
+    
+    "progressTracking": "Progress Tracking",
+    "progressDescription": "Detailed analytics and insights to monitor your cognitive improvements",
+    
+    "multiPlatform": "Multi-Platform Access",
+    "multiPlatformDescription": "Train anywhere, anytime - on desktop, tablet, or mobile devices",
+    
+    "userTestimonials": "What Our Users Say",
+    "testimonialsDescription": "Success stories from people who improved their cognitive abilities",
+    
+    "testimonial1": "I've been using this platform for 3 months, and I've noticed significant improvements in my memory and concentration. The games are fun and challenging!",
+    "user1Occupation": "Teacher, 42",
+    
+    "testimonial2": "As a student preparing for exams, these brain games have helped me improve my focus and problem-solving skills. Highly recommended!",
+    "user2Occupation": "University Student, 20",
+    
+    "testimonial3": "I started using this for my elderly mother who was concerned about cognitive decline. She loves the games and has shown improvement in her daily activities.",
+    "user3Occupation": "Healthcare Professional, 35",
+    
+    "readyToStart": "Ready to Train Your Brain?",
+    "ctaDescription": "Join thousands of users who are already improving their cognitive abilities",
+    "tryGames": "Try Games First",
+    
+    "statsUsers": "Active Users",
+    "statsGames": "Brain Games",
+    "statsCountries": "Countries",
+    "statsImprovements": "Average Improvement"
+} 

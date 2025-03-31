@@ -1,0 +1,240 @@
+<div class="auth-page register-page">
+    <div class="container">
+        <div class="auth-wrapper">
+            <div class="auth-content">
+                <div class="auth-header">
+                    <h1 class="auth-title"><%= t('auth:registerTitle') %></h1>
+                    <p class="auth-description"><%= t('auth:registerDescription') %></p>
+                </div>
+                
+                <form class="auth-form" method="POST" action="/auth/register">
+                    <div class="form-group">
+                        <label for="username" class="form-label"><%= t('auth:usernameLabel') %></label>
+                        <div class="input-group">
+                            <span class="input-icon"><span class="icon-user"></span></span>
+                            <input type="text" id="username" name="username" class="form-control" 
+                                placeholder="<%= t('auth:usernamePlaceholder') %>" 
+                                value="<%= locals.formData ? locals.formData.username : '' %>"
+                                required minlength="3" maxlength="20" autocomplete="username">
+                        </div>
+                        <% if (locals.errors && locals.errors.username) { %>
+                            <span class="form-error"><%= locals.errors.username %></span>
+                        <% } %>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email" class="form-label"><%= t('auth:emailLabel') %></label>
+                        <div class="input-group">
+                            <span class="input-icon"><span class="icon-mail"></span></span>
+                            <input type="email" id="email" name="email" class="form-control" 
+                                placeholder="<%= t('auth:emailPlaceholder') %>" 
+                                value="<%= locals.formData ? locals.formData.email : '' %>"
+                                required autocomplete="email">
+                        </div>
+                        <% if (locals.errors && locals.errors.email) { %>
+                            <span class="form-error"><%= locals.errors.email %></span>
+                        <% } %>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password" class="form-label"><%= t('auth:passwordLabel') %></label>
+                        <div class="input-group">
+                            <span class="input-icon"><span class="icon-lock"></span></span>
+                            <input type="password" id="password" name="password" class="form-control" 
+                                placeholder="<%= t('auth:passwordPlaceholder') %>" 
+                                required minlength="8" autocomplete="new-password">
+                            <button type="button" class="password-toggle" aria-label="<%= t('auth:togglePasswordVisibility') %>">
+                                <span class="icon-eye"></span>
+                            </button>
+                        </div>
+                        <% if (locals.errors && locals.errors.password) { %>
+                            <span class="form-error"><%= locals.errors.password %></span>
+                        <% } %>
+                        <div class="password-strength" id="passwordStrength">
+                            <div class="strength-meter">
+                                <div class="strength-meter-fill" data-strength="0"></div>
+                            </div>
+                            <div class="strength-text" id="strengthText"><%= t('auth:passwordWeak') %></div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="confirmPassword" class="form-label"><%= t('auth:confirmPasswordLabel') %></label>
+                        <div class="input-group">
+                            <span class="input-icon"><span class="icon-lock"></span></span>
+                            <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" 
+                                placeholder="<%= t('auth:confirmPasswordPlaceholder') %>" 
+                                required autocomplete="new-password">
+                        </div>
+                        <% if (locals.errors && locals.errors.confirmPassword) { %>
+                            <span class="form-error"><%= locals.errors.confirmPassword %></span>
+                        <% } %>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="checkbox-wrapper">
+                            <input type="checkbox" id="agreeTerms" name="agreeTerms" class="form-checkbox"
+                                <% if (locals.formData && locals.formData.agreeTerms) { %>checked<% } %> required>
+                            <label for="agreeTerms" class="checkbox-label">
+                                <%= t('auth:agreeToTerms') %> 
+                                <a href="/terms-of-service" target="_blank"><%= t('auth:termsOfService') %></a> 
+                                <%= t('auth:and') %> 
+                                <a href="/privacy-policy" target="_blank"><%= t('auth:privacyPolicy') %></a>
+                            </label>
+                        </div>
+                        <% if (locals.errors && locals.errors.agreeTerms) { %>
+                            <span class="form-error"><%= locals.errors.agreeTerms %></span>
+                        <% } %>
+                    </div>
+                    
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <%= t('auth:registerButton') %>
+                        </button>
+                    </div>
+                </form>
+                
+                <% if (config.auth.socialLogin) { %>
+                    <div class="social-login">
+                        <div class="divider">
+                            <span class="divider-text"><%= t('auth:orContinueWith') %></span>
+                        </div>
+                        
+                        <div class="social-buttons">
+                            <% if (config.auth.google) { %>
+                                <a href="/auth/google" class="btn btn-social btn-google">
+                                    <span class="icon-google"></span>
+                                    Google
+                                </a>
+                            <% } %>
+                            
+                            <% if (config.auth.facebook) { %>
+                                <a href="/auth/facebook" class="btn btn-social btn-facebook">
+                                    <span class="icon-facebook"></span>
+                                    Facebook
+                                </a>
+                            <% } %>
+                            
+                            <% if (config.auth.twitter) { %>
+                                <a href="/auth/twitter" class="btn btn-social btn-twitter">
+                                    <span class="icon-twitter"></span>
+                                    Twitter
+                                </a>
+                            <% } %>
+                        </div>
+                    </div>
+                <% } %>
+                
+                <div class="auth-footer">
+                    <p class="auth-link-text">
+                        <%= t('auth:alreadyHaveAccount') %> 
+                        <a href="/auth/login" class="auth-link">
+                            <%= t('auth:loginNow') %>
+                        </a>
+                    </p>
+                </div>
+            </div>
+            
+            <div class="auth-image">
+                <div class="image-container">
+                    <img src="/images/auth/register-image.svg" alt="<%= t('auth:registerImageAlt') %>" class="auth-illustration">
+                </div>
+                <div class="image-caption">
+                    <h2 class="caption-title"><%= t('auth:registerImageTitle') %></h2>
+                    <p class="caption-text"><%= t('auth:registerImageText') %></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // 密码可见性切换
+        const passwordToggles = document.querySelectorAll('.password-toggle');
+        
+        passwordToggles.forEach(toggle => {
+            toggle.addEventListener('click', function() {
+                const input = this.previousElementSibling.previousElementSibling;
+                const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+                input.setAttribute('type', type);
+                
+                // 切换图标
+                const icon = this.querySelector('span');
+                if (type === 'password') {
+                    icon.classList.remove('icon-eye-off');
+                    icon.classList.add('icon-eye');
+                } else {
+                    icon.classList.remove('icon-eye');
+                    icon.classList.add('icon-eye-off');
+                }
+            });
+        });
+        
+        // 密码强度检测
+        const passwordInput = document.getElementById('password');
+        const strengthMeter = document.querySelector('.strength-meter-fill');
+        const strengthText = document.getElementById('strengthText');
+        
+        const strengthLabels = {
+            0: '<%= t("auth:passwordWeak") %>',
+            1: '<%= t("auth:passwordFair") %>',
+            2: '<%= t("auth:passwordGood") %>',
+            3: '<%= t("auth:passwordStrong") %>'
+        };
+        
+        const strengthClasses = ['weak', 'fair', 'good', 'strong'];
+        
+        if (passwordInput && strengthMeter && strengthText) {
+            passwordInput.addEventListener('input', function() {
+                const value = this.value;
+                let strength = 0;
+                
+                // 长度检查
+                if (value.length >= 8) strength += 1;
+                
+                // 复杂性检查
+                if (/[A-Z]/.test(value) && /[a-z]/.test(value)) strength += 1;
+                if (/[0-9]/.test(value)) strength += 1;
+                if (/[^A-Za-z0-9]/.test(value)) strength += 1;
+                
+                // 限制最大强度为3
+                strength = Math.min(strength, 3);
+                
+                // 更新UI
+                strengthMeter.setAttribute('data-strength', strength);
+                strengthMeter.style.width = `${(strength + 1) * 25}%`;
+                strengthText.textContent = strengthLabels[strength];
+                
+                // 更新类名
+                strengthClasses.forEach(cls => {
+                    strengthMeter.classList.remove(cls);
+                });
+                strengthMeter.classList.add(strengthClasses[strength]);
+            });
+        }
+        
+        // 确认密码验证
+        const confirmPasswordInput = document.getElementById('confirmPassword');
+        
+        if (passwordInput && confirmPasswordInput) {
+            confirmPasswordInput.addEventListener('input', function() {
+                if (this.value === passwordInput.value) {
+                    this.setCustomValidity('');
+                } else {
+                    this.setCustomValidity('<%= t("auth:passwordsDoNotMatch") %>');
+                }
+            });
+            
+            passwordInput.addEventListener('input', function() {
+                if (confirmPasswordInput.value) {
+                    if (confirmPasswordInput.value === this.value) {
+                        confirmPasswordInput.setCustomValidity('');
+                    } else {
+                        confirmPasswordInput.setCustomValidity('<%= t("auth:passwordsDoNotMatch") %>');
+                    }
+                }
+            });
+        }
+    });
+</script> 

@@ -1,0 +1,491 @@
+<div class="game-container memory-card-game" id="memoryCardGame">
+    <div class="game-header">
+        <div class="game-info">
+            <h1 class="game-title"><%= t('games:memoryCardTitle') %></h1>
+            <p class="game-description"><%= t('games:memoryCardDescription') %></p>
+        </div>
+        <div class="game-stats">
+            <div class="stat-item">
+                <span class="stat-label"><%= t('games:time') %></span>
+                <span class="stat-value" id="gameTime">00:00</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label"><%= t('games:moves') %></span>
+                <span class="stat-value" id="gameMoves">0</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label"><%= t('games:pairs') %></span>
+                <span class="stat-value"><span id="pairsFound">0</span>/<span id="totalPairs">8</span></span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="game-controls">
+        <div class="difficulty-selector">
+            <span class="control-label"><%= t('games:difficulty') %>:</span>
+            <div class="button-group">
+                <button class="btn btn-sm difficulty-btn" data-difficulty="easy"><%= t('games:difficultyEasy') %></button>
+                <button class="btn btn-sm difficulty-btn active" data-difficulty="medium"><%= t('games:difficultyMedium') %></button>
+                <button class="btn btn-sm difficulty-btn" data-difficulty="hard"><%= t('games:difficultyHard') %></button>
+            </div>
+        </div>
+        <div class="game-actions">
+            <button class="btn btn-primary" id="startGame">
+                <span class="icon-play"></span> <%= t('games:startGame') %>
+            </button>
+            <button class="btn btn-outline" id="restartGame" disabled>
+                <span class="icon-refresh"></span> <%= t('games:restartGame') %>
+            </button>
+        </div>
+    </div>
+    
+    <div class="game-board-container">
+        <div class="game-status" id="gameStatus">
+            <div class="status-message">
+                <span class="icon-info-circle"></span>
+                <p><%= t('games:selectDifficultyAndStart') %></p>
+            </div>
+        </div>
+        
+        <div class="game-board" id="gameBoard">
+            <!-- 卡片将通过JavaScript动态生成 -->
+        </div>
+    </div>
+    
+    <!-- 游戏结束对话框 -->
+    <div class="game-modal" id="gameCompleteModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title"><%= t('games:congratulations') %></h2>
+                <button class="modal-close" id="closeModal">
+                    <span class="icon-close"></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="result-icon">
+                    <span class="icon-trophy"></span>
+                </div>
+                <p class="result-message"><%= t('games:memoryCardComplete') %></p>
+                <div class="result-stats">
+                    <div class="result-stat">
+                        <span class="stat-label"><%= t('games:timeElapsed') %></span>
+                        <span class="stat-value" id="resultTime">00:00</span>
+                    </div>
+                    <div class="result-stat">
+                        <span class="stat-label"><%= t('games:totalMoves') %></span>
+                        <span class="stat-value" id="resultMoves">0</span>
+                    </div>
+                    <div class="result-stat">
+                        <span class="stat-label"><%= t('games:difficultyLevel') %></span>
+                        <span class="stat-value" id="resultDifficulty">中等</span>
+                    </div>
+                </div>
+                <div class="result-score">
+                    <div class="score-label"><%= t('games:yourScore') %></div>
+                    <div class="score-value" id="finalScore">0</div>
+                </div>
+                <% if (!locals.user) { %>
+                    <div class="login-prompt">
+                        <p><%= t('games:loginToSaveScore') %></p>
+                        <div class="prompt-actions">
+                            <a href="/auth/login" class="btn btn-primary">
+                                <%= t('auth:login') %>
+                            </a>
+                            <a href="/auth/register" class="btn btn-outline">
+                                <%= t('auth:register') %>
+                            </a>
+                        </div>
+                    </div>
+                <% } %>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="playAgain">
+                    <%= t('games:playAgain') %>
+                </button>
+                <a href="/games" class="btn btn-outline">
+                    <%= t('games:backToGames') %>
+                </a>
+                <% if (locals.user) { %>
+                    <button class="btn btn-success" id="saveScore">
+                        <%= t('games:saveScore') %>
+                    </button>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 游戏相关的JavaScript -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // 游戏配置
+        const config = {
+            difficulties: {
+                easy: { pairs: 6, timeLimit: 120 },
+                medium: { pairs: 8, timeLimit: 150 },
+                hard: { pairs: 12, timeLimit: 180 }
+            },
+            currentDifficulty: 'medium',
+            gameStarted: false,
+            gameComplete: false,
+            cards: [],
+            flippedCards: [],
+            matchedPairs: 0,
+            moves: 0,
+            startTime: 0,
+            timerInterval: null,
+            canFlip: false
+        };
+        
+        // 获取DOM元素
+        const gameBoard = document.getElementById('gameBoard');
+        const gameStatus = document.getElementById('gameStatus');
+        const startBtn = document.getElementById('startGame');
+        const restartBtn = document.getElementById('restartGame');
+        const difficultyBtns = document.querySelectorAll('.difficulty-btn');
+        const gameTimeEl = document.getElementById('gameTime');
+        const gameMovesEl = document.getElementById('gameMoves');
+        const pairsFoundEl = document.getElementById('pairsFound');
+        const totalPairsEl = document.getElementById('totalPairs');
+        const gameCompleteModal = document.getElementById('gameCompleteModal');
+        const closeModalBtn = document.getElementById('closeModal');
+        const playAgainBtn = document.getElementById('playAgain');
+        const saveScoreBtn = document.getElementById('saveScore');
+        const resultTimeEl = document.getElementById('resultTime');
+        const resultMovesEl = document.getElementById('resultMoves');
+        const resultDifficultyEl = document.getElementById('resultDifficulty');
+        const finalScoreEl = document.getElementById('finalScore');
+        
+        // 难度选择
+        difficultyBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                // 只有在游戏未开始时才能更改难度
+                if (!config.gameStarted) {
+                    difficultyBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    config.currentDifficulty = this.dataset.difficulty;
+                    
+                    // 更新UI显示
+                    const totalPairs = config.difficulties[config.currentDifficulty].pairs;
+                    totalPairsEl.textContent = totalPairs;
+                    
+                    // 更新游戏状态提示
+                    updateGameStatus('<%= t("games:readyToStart") %>');
+                }
+            });
+        });
+        
+        // 开始游戏
+        startBtn.addEventListener('click', function() {
+            startGame();
+        });
+        
+        // 重新开始游戏
+        restartBtn.addEventListener('click', function() {
+            resetGame();
+            startGame();
+        });
+        
+        // 关闭结果对话框
+        closeModalBtn.addEventListener('click', function() {
+            gameCompleteModal.classList.remove('show');
+        });
+        
+        // 再玩一次
+        playAgainBtn.addEventListener('click', function() {
+            gameCompleteModal.classList.remove('show');
+            resetGame();
+            startGame();
+        });
+        
+        // 保存分数
+        if (saveScoreBtn) {
+            saveScoreBtn.addEventListener('click', function() {
+                saveGameScore();
+            });
+        }
+        
+        // 开始游戏
+        function startGame() {
+            config.gameStarted = true;
+            config.canFlip = true;
+            startBtn.disabled = true;
+            restartBtn.disabled = false;
+            difficultyBtns.forEach(btn => btn.disabled = true);
+            
+            // 生成卡片
+            generateCards();
+            
+            // 启动计时器
+            config.startTime = Date.now();
+            config.timerInterval = setInterval(updateTimer, 1000);
+            
+            // 更新游戏状态
+            updateGameStatus('<%= t("games:gameInProgress") %>', 'progress');
+            
+            // 自动翻开所有卡片预览（3秒后翻回）
+            previewCards();
+        }
+        
+        // 生成卡片
+        function generateCards() {
+            gameBoard.innerHTML = '';
+            config.cards = [];
+            config.flippedCards = [];
+            config.matchedPairs = 0;
+            config.moves = 0;
+            
+            // 清空计数
+            gameMovesEl.textContent = '0';
+            pairsFoundEl.textContent = '0';
+            
+            const totalPairs = config.difficulties[config.currentDifficulty].pairs;
+            const emojis = ['🐶', '🐱', '🐭', '🐹', '🐰', '🦊', '🐻', '🐼', '🐨', '🐯', '🦁', '🐮', '🐷', '🐸', '🐵', '🦄'];
+            
+            // 随机选择表情
+            const selectedEmojis = emojis.sort(() => 0.5 - Math.random()).slice(0, totalPairs);
+            
+            // 创建对子
+            let cardPairs = [...selectedEmojis, ...selectedEmojis];
+            
+            // 洗牌
+            cardPairs = cardPairs.sort(() => 0.5 - Math.random());
+            
+            // 根据难度设置游戏板的网格
+            let gridClass = '';
+            switch (config.currentDifficulty) {
+                case 'easy':
+                    gridClass = 'grid-3x4';
+                    break;
+                case 'medium':
+                    gridClass = 'grid-4x4';
+                    break;
+                case 'hard':
+                    gridClass = 'grid-4x6';
+                    break;
+            }
+            
+            gameBoard.className = `game-board ${gridClass}`;
+            
+            // 为每个卡片创建DOM元素
+            cardPairs.forEach((emoji, index) => {
+                const card = document.createElement('div');
+                card.className = 'memory-card';
+                card.dataset.cardIndex = index;
+                card.dataset.value = emoji;
+                
+                card.innerHTML = `
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <div class="card-pattern"></div>
+                        </div>
+                        <div class="card-back">
+                            <span class="card-emoji">${emoji}</span>
+                        </div>
+                    </div>
+                `;
+                
+                card.addEventListener('click', () => flipCard(card));
+                gameBoard.appendChild(card);
+                config.cards.push(card);
+            });
+        }
+        
+        // 卡片预览
+        function previewCards() {
+            config.cards.forEach(card => {
+                card.classList.add('flipped');
+            });
+            
+            config.canFlip = false;
+            
+            setTimeout(() => {
+                config.cards.forEach(card => {
+                    card.classList.remove('flipped');
+                });
+                config.canFlip = true;
+            }, 3000);
+        }
+        
+        // 翻转卡片
+        function flipCard(card) {
+            // 检查是否可以翻牌
+            if (!config.canFlip || 
+                config.flippedCards.length >= 2 || 
+                card.classList.contains('flipped') || 
+                card.classList.contains('matched')) {
+                return;
+            }
+            
+            // 翻转卡片
+            card.classList.add('flipped');
+            config.flippedCards.push(card);
+            
+            // 如果翻转了两张卡片，检查是否匹配
+            if (config.flippedCards.length === 2) {
+                config.moves++;
+                gameMovesEl.textContent = config.moves;
+                
+                const [card1, card2] = config.flippedCards;
+                
+                if (card1.dataset.value === card2.dataset.value) {
+                    // 卡片匹配
+                    setTimeout(() => {
+                        card1.classList.add('matched');
+                        card2.classList.add('matched');
+                        config.flippedCards = [];
+                        config.matchedPairs++;
+                        pairsFoundEl.textContent = config.matchedPairs;
+                        
+                        // 检查游戏是否完成
+                        checkGameComplete();
+                    }, 500);
+                } else {
+                    // 卡片不匹配，翻回去
+                    config.canFlip = false;
+                    setTimeout(() => {
+                        card1.classList.remove('flipped');
+                        card2.classList.remove('flipped');
+                        config.flippedCards = [];
+                        config.canFlip = true;
+                    }, 1000);
+                }
+            }
+        }
+        
+        // 更新计时器
+        function updateTimer() {
+            if (!config.gameStarted) return;
+            
+            const elapsedTime = Math.floor((Date.now() - config.startTime) / 1000);
+            const minutes = Math.floor(elapsedTime / 60).toString().padStart(2, '0');
+            const seconds = (elapsedTime % 60).toString().padStart(2, '0');
+            
+            gameTimeEl.textContent = `${minutes}:${seconds}`;
+        }
+        
+        // 检查游戏是否完成
+        function checkGameComplete() {
+            const totalPairs = config.difficulties[config.currentDifficulty].pairs;
+            
+            if (config.matchedPairs === totalPairs) {
+                config.gameComplete = true;
+                config.gameStarted = false;
+                clearInterval(config.timerInterval);
+                
+                // 计算结果和分数
+                const timeElapsed = Math.floor((Date.now() - config.startTime) / 1000);
+                const difficultyFactor = config.currentDifficulty === 'easy' ? 1 : 
+                                        config.currentDifficulty === 'medium' ? 1.5 : 2;
+                
+                // 基于时间和移动次数计算分数
+                const baseScore = totalPairs * 100;
+                const timeBonus = Math.max(0, config.difficulties[config.currentDifficulty].timeLimit - timeElapsed) * 5;
+                const movesPenalty = Math.max(0, config.moves - totalPairs) * 10;
+                const finalScore = Math.max(0, Math.round((baseScore + timeBonus - movesPenalty) * difficultyFactor));
+                
+                // 显示结果
+                const minutes = Math.floor(timeElapsed / 60).toString().padStart(2, '0');
+                const seconds = (timeElapsed % 60).toString().padStart(2, '0');
+                
+                resultTimeEl.textContent = `${minutes}:${seconds}`;
+                resultMovesEl.textContent = config.moves;
+                resultDifficultyEl.textContent = config.currentDifficulty === 'easy' ? 
+                    '<%= t("games:difficultyEasy") %>' : 
+                    config.currentDifficulty === 'medium' ? 
+                    '<%= t("games:difficultyMedium") %>' : 
+                    '<%= t("games:difficultyHard") %>';
+                finalScoreEl.textContent = finalScore;
+                
+                // 显示结果对话框
+                setTimeout(() => {
+                    gameCompleteModal.classList.add('show');
+                }, 500);
+                
+                // 更新游戏状态
+                updateGameStatus('<%= t("games:gameComplete") %>', 'success');
+                
+                // 重置UI
+                startBtn.disabled = false;
+                restartBtn.disabled = false;
+                difficultyBtns.forEach(btn => btn.disabled = false);
+            }
+        }
+        
+        // 重置游戏
+        function resetGame() {
+            // 停止计时器
+            clearInterval(config.timerInterval);
+            config.gameStarted = false;
+            config.gameComplete = false;
+            config.matchedPairs = 0;
+            config.moves = 0;
+            config.flippedCards = [];
+            
+            // 重置UI
+            gameTimeEl.textContent = '00:00';
+            gameMovesEl.textContent = '0';
+            pairsFoundEl.textContent = '0';
+            gameBoard.innerHTML = '';
+            
+            // 启用按钮
+            startBtn.disabled = false;
+            restartBtn.disabled = true;
+            difficultyBtns.forEach(btn => btn.disabled = false);
+            
+            // 更新游戏状态
+            updateGameStatus('<%= t("games:selectDifficultyAndStart") %>');
+        }
+        
+        // 更新游戏状态消息
+        function updateGameStatus(message, type = 'info') {
+            gameStatus.innerHTML = `
+                <div class="status-message status-${type}">
+                    <span class="icon-${type === 'info' ? 'info-circle' : type === 'success' ? 'check-circle' : 'play-circle'}"></span>
+                    <p>${message}</p>
+                </div>
+            `;
+        }
+        
+        // 保存游戏分数到服务器
+        function saveGameScore() {
+            const score = parseInt(finalScoreEl.textContent);
+            const difficulty = config.currentDifficulty;
+            const moves = config.moves;
+            const timeElapsed = Math.floor((Date.now() - config.startTime) / 1000);
+            
+            fetch('/api/games/save-score', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    gameId: 'memory-card',
+                    score,
+                    difficulty,
+                    moves,
+                    timeElapsed
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // 显示成功消息
+                    saveScoreBtn.innerHTML = '<span class="icon-check"></span> <%= t("games:scoreSaved") %>';
+                    saveScoreBtn.disabled = true;
+                } else {
+                    // 显示错误消息
+                    alert('<%= t("games:errorSavingScore") %>');
+                }
+            })
+            .catch(error => {
+                console.error('Error saving score:', error);
+                alert('<%= t("games:errorSavingScore") %>');
+            });
+        }
+        
+        // 初始化UI
+        updateGameStatus('<%= t("games:selectDifficultyAndStart") %>');
+        totalPairsEl.textContent = config.difficulties[config.currentDifficulty].pairs;
+    });
+</script> 

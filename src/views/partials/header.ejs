@@ -1,0 +1,110 @@
+<header class="site-header">
+    <div class="container">
+        <div class="header-wrapper">
+            <!-- 网站Logo -->
+            <div class="site-logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="<%= config.app.name %>" class="logo-image">
+                    <span class="logo-text"><%= config.app.name %></span>
+                </a>
+            </div>
+            
+            <!-- 主导航 -->
+            <nav class="main-nav" aria-label="Main Navigation">
+                <button class="menu-toggle" aria-expanded="false" aria-controls="main-menu">
+                    <span class="hamburger-icon"></span>
+                    <span class="sr-only"><%= t('common:toggleMenu') %></span>
+                </button>
+                
+                <ul id="main-menu" class="nav-menu">
+                    <li class="nav-item <%= locals.activePage === 'home' ? 'active' : '' %>">
+                        <a href="/" class="nav-link"><%= t('common:home') %></a>
+                    </li>
+                    <li class="nav-item <%= locals.activePage === 'games' ? 'active' : '' %>">
+                        <a href="/games" class="nav-link"><%= t('common:games') %></a>
+                    </li>
+                    <li class="nav-item <%= locals.activePage === 'leaderboard' ? 'active' : '' %>">
+                        <a href="/leaderboard" class="nav-link"><%= t('common:leaderboard') %></a>
+                    </li>
+                    <li class="nav-item <%= locals.activePage === 'about' ? 'active' : '' %>">
+                        <a href="/about" class="nav-link"><%= t('common:about') %></a>
+                    </li>
+                    <li class="nav-item <%= locals.activePage === 'contact' ? 'active' : '' %>">
+                        <a href="/contact" class="nav-link"><%= t('common:contact') %></a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <!-- 用户菜单和语言切换 -->
+            <div class="header-actions">
+                <!-- 语言切换器 -->
+                <div class="language-switcher">
+                    <button class="lang-toggle" aria-expanded="false" aria-controls="language-menu">
+                        <span class="current-lang">
+                            <%= locals.languageDetails ? locals.languageDetails.name : 'English' %>
+                        </span>
+                        <span class="icon-arrow-down"></span>
+                    </button>
+                    
+                    <ul id="language-menu" class="lang-menu">
+                        <% config.languages.forEach(function(lang) { %>
+                            <li class="lang-item <%= (locals.currentLanguage === lang.code) ? 'active' : '' %>">
+                                <a href="/language/<%= lang.code %>" class="lang-link">
+                                    <%= lang.name %>
+                                </a>
+                            </li>
+                        <% }); %>
+                    </ul>
+                </div>
+                
+                <!-- 用户菜单 - 根据登录状态显示不同的选项 -->
+                <div class="user-menu">
+                    <% if (locals.user) { %>
+                        <button class="user-toggle" aria-expanded="false" aria-controls="user-menu">
+                            <img src="<%= locals.user.profilePicture || '/images/default-avatar.png' %>" alt="<%= locals.user.username %>" class="user-avatar">
+                            <span class="username"><%= locals.user.username %></span>
+                            <span class="icon-arrow-down"></span>
+                        </button>
+                        
+                        <ul id="user-menu" class="dropdown-menu">
+                            <li class="dropdown-item">
+                                <a href="/user/profile" class="dropdown-link">
+                                    <span class="icon-user"></span>
+                                    <%= t('user:profile') %>
+                                </a>
+                            </li>
+                            <li class="dropdown-item">
+                                <a href="/user/progress" class="dropdown-link">
+                                    <span class="icon-chart"></span>
+                                    <%= t('user:progress') %>
+                                </a>
+                            </li>
+                            <li class="dropdown-item">
+                                <a href="/user/settings" class="dropdown-link">
+                                    <span class="icon-settings"></span>
+                                    <%= t('user:settings') %>
+                                </a>
+                            </li>
+                            <li class="dropdown-divider"></li>
+                            <li class="dropdown-item">
+                                <a href="/auth/logout" class="dropdown-link logout-link">
+                                    <span class="icon-logout"></span>
+                                    <%= t('auth:logout') %>
+                                </a>
+                            </li>
+                        </ul>
+                    <% } else { %>
+                        <div class="auth-buttons">
+                            <a href="/auth/login" class="btn btn-outline login-btn">
+                                <%= t('auth:login') %>
+                            </a>
+                            <a href="/auth/register" class="btn btn-primary register-btn">
+                                <%= t('auth:register') %>
+                            </a>
+                        </div>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+</header> 

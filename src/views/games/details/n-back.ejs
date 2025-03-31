@@ -1,0 +1,186 @@
+<%- include('../../layouts/main', { title: t('games:nBackTitle'), description: t('games:nBackDescription') }) %>
+
+<div class="game-details-container">
+    <div class="hero-section" style="background-image: url('/images/games/n-back-hero.jpg')">
+        <div class="container">
+            <div class="game-header">
+                <div class="game-info">
+                    <h1 class="game-title"><%= t('games:nBackTitle') %></h1>
+                    <p class="game-description"><%= t('games:nBackDescription') %></p>
+                    <div class="game-meta">
+                        <div class="meta-item">
+                            <span class="meta-icon"><i class="icon-brain"></i></span>
+                            <span class="meta-text"><%= t('games:memory') %></span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-icon"><i class="icon-difficulty"></i></span>
+                            <span class="meta-text"><%= t('games:intermediate') %></span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-icon"><i class="icon-clock"></i></span>
+                            <span class="meta-text">3-8 <%= t('games:minutes') %></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="game-actions">
+                    <a href="/games/play/n-back" class="btn btn-primary btn-lg">
+                        <i class="icon-play"></i> <%= t('games:startTraining') %>
+                    </a>
+                    <a href="/games/leaderboard/n-back" class="btn btn-outline">
+                        <i class="icon-trophy"></i> <%= t('games:leaderboard') %>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="content-section">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="section-card">
+                        <h2 class="section-title"><%= t('games:howToPlay') %></h2>
+                        <div class="section-content">
+                            <p>
+                                <%= t('games:nBackIntroduction') %>
+                            </p>
+                            <div class="game-instructions">
+                                <h3><%= t('games:gameRules') %></h3>
+                                <ol>
+                                    <li><%= t('games:nBackRule1') %></li>
+                                    <li><%= t('games:nBackRule2') %></li>
+                                    <li><%= t('games:nBackRule3') %></li>
+                                    <li><%= t('games:nBackRule4') %></li>
+                                </ol>
+                            </div>
+                            <div class="game-controls-info">
+                                <h3><%= t('games:controls') %></h3>
+                                <ul>
+                                    <li><strong><%= t('games:match') %>:</strong> <%= t('games:nBackControlMatch') %></li>
+                                    <li><strong><%= t('games:nonMatch') %>:</strong> <%= t('games:nBackControlNonMatch') %></li>
+                                </ul>
+                            </div>
+                            <div class="game-modes-info">
+                                <h3><%= t('games:gameModes') %></h3>
+                                <ul>
+                                    <li><strong><%= t('games:positionMode') %>:</strong> <%= t('games:nBackPositionMode') %></li>
+                                    <li><strong><%= t('games:colorMode') %>:</strong> <%= t('games:nBackColorMode') %></li>
+                                    <li><strong><%= t('games:nBackDualMode') %></strong> <%= t('games:nBackDualModeDesc') %></li>
+                                </ul>
+                            </div>
+                            <div class="game-tips">
+                                <h3><%= t('games:tips') %></h3>
+                                <ul>
+                                    <li><%= t('games:nBackTip1') %></li>
+                                    <li><%= t('games:nBackTip2') %></li>
+                                    <li><%= t('games:nBackTip3') %></li>
+                                </ul>
+                            </div>
+                            <div class="difficulty-levels">
+                                <h3><%= t('games:difficultyLevels') %></h3>
+                                <ul>
+                                    <li><strong>N=1:</strong> <%= t('games:nBackDifficultyEasy') %></li>
+                                    <li><strong>N=2:</strong> <%= t('games:nBackDifficultyMedium') %></li>
+                                    <li><strong>N=3:</strong> <%= t('games:nBackDifficultyHard') %></li>
+                                    <li><strong>N=4+:</strong> <%= t('games:nBackDifficultyExpert') %></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="section-card">
+                        <h2 class="section-title"><%= t('games:scienceBackground') %></h2>
+                        <div class="section-content">
+                            <p><%= t('games:nBackScience1') %></p>
+                            <p><%= t('games:nBackScience2') %></p>
+                            <p><%= t('games:nBackScience3') %></p>
+                            <div class="research-references">
+                                <h3><%= t('games:researchReferences') %></h3>
+                                <ul>
+                                    <li>Jaeggi, S. M., Buschkuehl, M., Jonides, J., & Perrig, W. J. (2008). <%= t('games:nBackResearch1') %></li>
+                                    <li>Au, J., Sheehan, E., Tsai, N., Duncan, G. J., Buschkuehl, M., & Jaeggi, S. M. (2015). <%= t('games:nBackResearch2') %></li>
+                                    <li>Pergher, V., Wittevrongel, B., Tournoy, J., Schoenmakers, B., & Van Hulle, M. M. (2018). <%= t('games:nBackResearch3') %></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="section-card">
+                        <h2 class="section-title"><%= t('games:targetSkills') %></h2>
+                        <div class="section-content">
+                            <div class="skill-item">
+                                <div class="skill-icon"><i class="icon-memory"></i></div>
+                                <div class="skill-info">
+                                    <h3 class="skill-name"><%= t('games:workingMemory') %></h3>
+                                    <div class="skill-bar">
+                                        <div class="skill-progress" style="width: 90%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-icon"><i class="icon-focus"></i></div>
+                                <div class="skill-info">
+                                    <h3 class="skill-name"><%= t('games:attention') %></h3>
+                                    <div class="skill-bar">
+                                        <div class="skill-progress" style="width: 80%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-icon"><i class="icon-cognitive"></i></div>
+                                <div class="skill-info">
+                                    <h3 class="skill-name"><%= t('games:cognitiveControl') %></h3>
+                                    <div class="skill-bar">
+                                        <div class="skill-progress" style="width: 75%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-icon"><i class="icon-speed"></i></div>
+                                <div class="skill-info">
+                                    <h3 class="skill-name"><%= t('games:processingSpeed') %></h3>
+                                    <div class="skill-bar">
+                                        <div class="skill-progress" style="width: 65%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="section-card">
+                        <h2 class="section-title"><%= t('games:benefits') %></h2>
+                        <div class="section-content">
+                            <ul class="benefits-list">
+                                <li><%= t('games:nBackBenefit1') %></li>
+                                <li><%= t('games:nBackBenefit2') %></li>
+                                <li><%= t('games:nBackBenefit3') %></li>
+                                <li><%= t('games:nBackBenefit4') %></li>
+                                <li><%= t('games:nBackBenefit5') %></li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="section-card">
+                        <h2 class="section-title"><%= t('games:relatedGames') %></h2>
+                        <div class="section-content">
+                            <div class="related-games">
+                                <a href="/games/details/memory-card" class="related-game">
+                                    <div class="related-game-image">
+                                        <img src="/images/games/memory-cards.jpg" alt="Memory Card Game">
+                                    </div>
+                                    <div class="related-game-info">
+                                        <h3 class="related-game-title"><%= t('games:memoryCardTitle') %></h3>
+                                        <p class="related-game-category"><%= t('games:memory') %></p>
+                                    </div>
+                                </a>
+                                <!-- 可以添加更多相关游戏 -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

@@ -1,0 +1,100 @@
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-widgets">
+            <!-- 网站信息 -->
+            <div class="footer-widget footer-about">
+                <div class="footer-logo">
+                    <img src="/images/logo.png" alt="<%= config.app.name %>" class="logo-image">
+                    <span class="logo-text"><%= config.app.name %></span>
+                </div>
+                <p class="footer-description">
+                    <%= t('footer:description') %>
+                </p>
+                <div class="social-links">
+                    <a href="<%= config.social.facebook %>" class="social-link" target="_blank" rel="noopener" aria-label="Facebook">
+                        <span class="icon-facebook"></span>
+                    </a>
+                    <a href="<%= config.social.twitter %>" class="social-link" target="_blank" rel="noopener" aria-label="Twitter">
+                        <span class="icon-twitter"></span>
+                    </a>
+                    <a href="<%= config.social.instagram %>" class="social-link" target="_blank" rel="noopener" aria-label="Instagram">
+                        <span class="icon-instagram"></span>
+                    </a>
+                    <a href="<%= config.social.linkedin %>" class="social-link" target="_blank" rel="noopener" aria-label="LinkedIn">
+                        <span class="icon-linkedin"></span>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- 快速链接 -->
+            <div class="footer-widget footer-links">
+                <h3 class="widget-title"><%= t('footer:quickLinks') %></h3>
+                <ul class="footer-menu">
+                    <li class="footer-menu-item">
+                        <a href="/games" class="footer-menu-link"><%= t('common:games') %></a>
+                    </li>
+                    <li class="footer-menu-item">
+                        <a href="/leaderboard" class="footer-menu-link"><%= t('common:leaderboard') %></a>
+                    </li>
+                    <li class="footer-menu-item">
+                        <a href="/about" class="footer-menu-link"><%= t('common:about') %></a>
+                    </li>
+                    <li class="footer-menu-item">
+                        <a href="/contact" class="footer-menu-link"><%= t('common:contact') %></a>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- 游戏分类 -->
+            <div class="footer-widget footer-categories">
+                <h3 class="widget-title"><%= t('games:categories') %></h3>
+                <ul class="footer-menu">
+                    <li class="footer-menu-item">
+                        <a href="/games/category/memory" class="footer-menu-link"><%= t('games:memory') %></a>
+                    </li>
+                    <li class="footer-menu-item">
+                        <a href="/games/category/attention" class="footer-menu-link"><%= t('games:attention') %></a>
+                    </li>
+                    <li class="footer-menu-item">
+                        <a href="/games/category/logic" class="footer-menu-link"><%= t('games:logic') %></a>
+                    </li>
+                    <li class="footer-menu-item">
+                        <a href="/games/category/language" class="footer-menu-link"><%= t('games:language') %></a>
+                    </li>
+                    <li class="footer-menu-item">
+                        <a href="/games/category/math" class="footer-menu-link"><%= t('games:math') %></a>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- 联系信息 -->
+            <div class="footer-widget footer-contact">
+                <h3 class="widget-title"><%= t('footer:contactUs') %></h3>
+                <ul class="contact-info">
+                    <li class="contact-item">
+                        <span class="icon-map-pin"></span>
+                        <span><%= config.contact.address %></span>
+                    </li>
+                    <li class="contact-item">
+                        <span class="icon-mail"></span>
+                        <a href="mailto:<%= config.contact.email %>"><%= config.contact.email %></a>
+                    </li>
+                    <li class="contact-item">
+                        <span class="icon-phone"></span>
+                        <a href="tel:<%= config.contact.phone %>"><%= config.contact.phone %></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="copyright">
+                &copy; <%= new Date().getFullYear() %> <%= config.app.name %>. <%= t('footer:allRightsReserved') %>
+            </div>
+            <div class="legal-links">
+                <a href="/privacy-policy" class="legal-link"><%= t('footer:privacyPolicy') %></a>
+                <a href="/terms-of-service" class="legal-link"><%= t('footer:termsOfService') %></a>
+            </div>
+        </div>
+    </div>
+</footer> 

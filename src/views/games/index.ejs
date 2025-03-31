@@ -1,0 +1,152 @@
+<%- include('../layouts/main', { title: t('games:gamesTitle'), description: t('games:gamesDescription') }) %>
+
+<div class="games-container">
+    <div class="hero-section">
+        <div class="container">
+            <h1 class="hero-title"><%= t('games:gamesTitle') %></h1>
+            <p class="hero-description"><%= t('games:gamesDescription') %></p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="games-filter">
+            <div class="filter-section">
+                <h3 class="filter-title"><%= t('games:filterByCategory') %></h3>
+                <div class="filter-options">
+                    <button class="filter-btn active" data-category="all"><%= t('games:allGames') %></button>
+                    <button class="filter-btn" data-category="memory"><%= t('games:memoryGames') %></button>
+                    <button class="filter-btn" data-category="attention"><%= t('games:attentionGames') %></button>
+                    <button class="filter-btn" data-category="language"><%= t('games:languageGames') %></button>
+                    <button class="filter-btn" data-category="logic"><%= t('games:logicGames') %></button>
+                </div>
+            </div>
+            <div class="search-section">
+                <input type="text" id="gameSearch" placeholder="<%= t('games:searchGames') %>" class="search-input">
+            </div>
+        </div>
+
+        <div class="games-grid">
+            <!-- 记忆卡牌游戏 -->
+            <div class="game-card" data-category="memory">
+                <div class="game-image">
+                    <img src="/images/games/memory-cards.jpg" alt="Memory Cards Game">
+                    <div class="game-difficulty">
+                        <span class="badge badge-beginner"><%= t('games:beginner') %></span>
+                    </div>
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title"><%= t('games:memoryCardTitle') %></h3>
+                    <p class="game-description"><%= t('games:memoryCardDescription') %></p>
+                    <div class="game-meta">
+                        <div class="meta-item">
+                            <span class="meta-icon"><i class="icon-clock"></i></span>
+                            <span class="meta-text">5-10 <%= t('games:minutes') %></span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-icon"><i class="icon-brain"></i></span>
+                            <span class="meta-text"><%= t('games:memory') %></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="game-actions">
+                    <a href="/games/play/memory-card" class="btn btn-primary btn-block">
+                        <%= t('games:startTraining') %>
+                    </a>
+                    <a href="/games/details/memory-card" class="btn btn-outline btn-block">
+                        <%= t('games:viewDetails') %>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- N-Back记忆游戏 -->
+            <div class="game-card" data-category="memory">
+                <div class="game-image">
+                    <img src="/images/games/n-back.jpg" alt="N-Back Memory Game">
+                    <div class="game-difficulty">
+                        <span class="badge badge-intermediate"><%= t('games:intermediate') %></span>
+                    </div>
+                </div>
+                <div class="game-content">
+                    <h3 class="game-title"><%= t('games:nBackTitle') %></h3>
+                    <p class="game-description"><%= t('games:nBackDescription') %></p>
+                    <div class="game-meta">
+                        <div class="meta-item">
+                            <span class="meta-icon"><i class="icon-clock"></i></span>
+                            <span class="meta-text">3-8 <%= t('games:minutes') %></span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-icon"><i class="icon-brain"></i></span>
+                            <span class="meta-text"><%= t('games:memory') %></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="game-actions">
+                    <a href="/games/play/n-back" class="btn btn-primary btn-block">
+                        <%= t('games:startTraining') %>
+                    </a>
+                    <a href="/games/details/n-back" class="btn btn-outline btn-block">
+                        <%= t('games:viewDetails') %>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 其他游戏将在这里添加 -->
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // 过滤功能
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const gameCards = document.querySelectorAll('.game-card');
+        const searchInput = document.getElementById('gameSearch');
+        
+        // 过滤按钮点击事件
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // 移除所有按钮的active类
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // 给当前点击的按钮添加active类
+                this.classList.add('active');
+                
+                const category = this.dataset.category;
+                
+                // 显示或隐藏游戏卡片
+                gameCards.forEach(card => {
+                    if (category === 'all' || card.dataset.category === category) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+                
+                // 更新搜索结果
+                updateSearchResults();
+            });
+        });
+        
+        // 搜索功能
+        searchInput.addEventListener('input', updateSearchResults);
+        
+        function updateSearchResults() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const activeCategory = document.querySelector('.filter-btn.active').dataset.category;
+            
+            gameCards.forEach(card => {
+                const title = card.querySelector('.game-title').textContent.toLowerCase();
+                const description = card.querySelector('.game-description').textContent.toLowerCase();
+                const category = card.dataset.category;
+                
+                const matchesSearch = title.includes(searchTerm) || description.includes(searchTerm);
+                const matchesCategory = activeCategory === 'all' || category === activeCategory;
+                
+                if (matchesSearch && matchesCategory) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    });
+</script> 

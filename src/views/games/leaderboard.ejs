@@ -1,0 +1,226 @@
+<%- include('../layouts/main', { title: t('games:leaderboard'), description: t('games:leaderboardDescription') }) %>
+
+<div class="leaderboard-container">
+    <div class="hero-section">
+        <div class="container">
+            <h1 class="hero-title"><%= t('games:leaderboard') %></h1>
+            <p class="hero-description"><%= t('games:leaderboardDescription') %></p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="section-card">
+            <div class="section-header">
+                <div class="game-info">
+                    <% const gameInfo = getGameInfo(gameId) %>
+                    <h2 class="section-title"><%= gameInfo ? gameInfo.name : gameId %></h2>
+                    <a href="/games/play/<%= gameId %>" class="btn btn-primary">
+                        <i class="icon-play"></i> <%= t('games:playNow') %>
+                    </a>
+                </div>
+                <div class="leaderboard-filter">
+                    <select id="timeFilter" class="form-select">
+                        <option value="all"><%= t('games:allTime') %></option>
+                        <option value="week"><%= t('games:thisWeek') %></option>
+                        <option value="month"><%= t('games:thisMonth') %></option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="leaderboard-table-container">
+                <% if (leaderboard && leaderboard.length > 0) { %>
+                <table class="leaderboard-table">
+                    <thead>
+                        <tr>
+                            <th class="rank-col"><%= t('games:rank') %></th>
+                            <th class="player-col"><%= t('games:player') %></th>
+                            <th class="score-col"><%= t('games:bestScore') %></th>
+                            <th class="level-col"><%= t('games:highestLevel') %></th>
+                            <th class="plays-col"><%= t('games:plays') %></th>
+                            <th class="date-col"><%= t('games:lastPlayed') %></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% leaderboard.forEach((entry, index) => { %>
+                        <tr class="<%= index < 3 ? 'top-rank rank-' + (index + 1) : '' %>">
+                            <td class="rank-col">
+                                <% if (index < 3) { %>
+                                <div class="top-rank-badge rank-<%= index + 1 %>">
+                                    <%= index + 1 %>
+                                </div>
+                                <% } else { %>
+                                <%= index + 1 %>
+                                <% } %>
+                            </td>
+                            <td class="player-col">
+                                <div class="player-info">
+                                    <div class="player-avatar">
+                                        <img src="<%= entry.profilePicture %>" alt="<%= entry.username %>">
+                                    </div>
+                                    <span class="player-name"><%= entry.username %></span>
+                                </div>
+                            </td>
+                            <td class="score-col"><%= entry.bestScore %></td>
+                            <td class="level-col">
+                                <% if (gameId === 'n-back') { %>
+                                <%= entry.highestLevel.replace('level-', 'N=') %>
+                                <% } else { %>
+                                <%= t('games:' + entry.highestLevel) %>
+                                <% } %>
+                            </td>
+                            <td class="plays-col"><%= entry.playCount %></td>
+                            <td class="date-col"><%= entry.lastPlayed.toLocaleDateString() %></td>
+                        </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+                <% } else { %>
+                <div class="no-data-message">
+                    <div class="message-icon">
+                        <i class="icon-trophy"></i>
+                    </div>
+                    <h3><%= t('games:noLeaderboardData') %></h3>
+                    <p><%= t('games:beTheFirst') %></p>
+                    <a href="/games/play/<%= gameId %>" class="btn btn-primary">
+                        <%= t('games:playNow') %>
+                    </a>
+                </div>
+                <% } %>
+            </div>
+        </div>
+
+        <div class="section-card">
+            <h2 class="section-title"><%= t('games:yourStats') %></h2>
+            
+            <% if (locals.user) { %>
+                <div class="your-stats">
+                    <!-- 用户统计数据将在这里显示 -->
+                    <div class="stats-placeholder">
+                        <p><%= t('games:loadingStats') %></p>
+                    </div>
+                </div>
+                
+                <script>
+                    // 获取用户统计数据
+                    document.addEventListener('DOMContentLoaded', function() {
+                        fetch('/api/games/progress')
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success && data.progress) {
+                                    const gameStats = data.progress.gameStats.find(stat => stat.gameId === '<%= gameId %>');
+                                    if (gameStats) {
+                                        displayUserStats(gameStats);
+                                    } else {
+                                        displayNoStatsMessage();
+                                    }
+                                } else {
+                                    displayNoStatsMessage();
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error fetching user stats:', error);
+                                displayNoStatsMessage();
+                            });
+                    });
+                    
+                    function displayUserStats(stats) {
+                        // 格式化最后游戏时间
+                        const lastPlayed = new Date(stats.lastPlayed).toLocaleDateString();
+                        
+                        // 格式化最高级别
+                        let highestLevel = stats.highestLevel;
+                        if ('<%= gameId %>' === 'n-back') {
+                            highestLevel = stats.highestLevel.replace('level-', 'N=');
+                        } else {
+                            // 这里可以添加其他游戏的级别格式化
+                            highestLevel = stats.highestLevel;
+                        }
+                        
+                        const statsHtml = `
+                            <div class="stats-grid">
+                                <div class="stat-item">
+                                    <div class="stat-label">${ '<%= t("games:bestScore") %>' }</div>
+                                    <div class="stat-value">${stats.bestScore}</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-label">${ '<%= t("games:totalScore") %>' }</div>
+                                    <div class="stat-value">${stats.totalScore}</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-label">${ '<%= t("games:averageScore") %>' }</div>
+                                    <div class="stat-value">${stats.averageScore}</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-label">${ '<%= t("games:highestLevel") %>' }</div>
+                                    <div class="stat-value">${highestLevel}</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-label">${ '<%= t("games:playCount") %>' }</div>
+                                    <div class="stat-value">${stats.playCount}</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-label">${ '<%= t("games:lastPlayed") %>' }</div>
+                                    <div class="stat-value">${lastPlayed}</div>
+                                </div>
+                            </div>
+                            <div class="stats-actions">
+                                <a href="/games/play/<%= gameId %>" class="btn btn-primary">
+                                    <i class="icon-play"></i> <%= t('games:playAgain') %>
+                                </a>
+                                <a href="/games/history" class="btn btn-outline">
+                                    <i class="icon-history"></i> <%= t('games:viewHistory') %>
+                                </a>
+                            </div>
+                        `;
+                        
+                        document.querySelector('.your-stats').innerHTML = statsHtml;
+                    }
+                    
+                    function displayNoStatsMessage() {
+                        const messageHtml = `
+                            <div class="no-stats-message">
+                                <p><%= t('games:noStatsYet') %></p>
+                                <a href="/games/play/<%= gameId %>" class="btn btn-primary">
+                                    <%= t('games:playNow') %>
+                                </a>
+                            </div>
+                        `;
+                        
+                        document.querySelector('.your-stats').innerHTML = messageHtml;
+                    }
+                </script>
+            <% } else { %>
+                <div class="login-prompt">
+                    <p><%= t('games:loginToViewStats') %></p>
+                    <div class="prompt-actions">
+                        <a href="/auth/login" class="btn btn-primary">
+                            <%= t('auth:login') %>
+                        </a>
+                        <a href="/auth/register" class="btn btn-outline">
+                            <%= t('auth:register') %>
+                        </a>
+                    </div>
+                </div>
+            <% } %>
+        </div>
+    </div>
+</div>
+
+<%
+// 辅助函数: 获取游戏信息
+function getGameInfo(gameId) {
+  const games = {
+    'memory-card': {
+      name: t('games:memoryCardTitle'),
+      category: 'memory'
+    },
+    'n-back': {
+      name: t('games:nBackTitle'),
+      category: 'memory'
+    }
+    // 可以添加其他游戏信息
+  };
+  
+  return games[gameId];
+}
+%> 

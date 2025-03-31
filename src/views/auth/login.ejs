@@ -1,0 +1,140 @@
+<div class="auth-page login-page">
+    <div class="container">
+        <div class="auth-wrapper">
+            <div class="auth-content">
+                <div class="auth-header">
+                    <h1 class="auth-title"><%= t('auth:loginTitle') %></h1>
+                    <p class="auth-description"><%= t('auth:loginDescription') %></p>
+                </div>
+                
+                <form class="auth-form" method="POST" action="/auth/login">
+                    <div class="form-group">
+                        <label for="email" class="form-label"><%= t('auth:emailLabel') %></label>
+                        <div class="input-group">
+                            <span class="input-icon"><span class="icon-mail"></span></span>
+                            <input type="email" id="email" name="email" class="form-control" 
+                                placeholder="<%= t('auth:emailPlaceholder') %>" 
+                                value="<%= locals.formData ? locals.formData.email : '' %>"
+                                required autocomplete="email">
+                        </div>
+                        <% if (locals.errors && locals.errors.email) { %>
+                            <span class="form-error"><%= locals.errors.email %></span>
+                        <% } %>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="password-header">
+                            <label for="password" class="form-label"><%= t('auth:passwordLabel') %></label>
+                            <a href="/auth/forgot-password" class="forgot-password-link">
+                                <%= t('auth:forgotPassword') %>
+                            </a>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-icon"><span class="icon-lock"></span></span>
+                            <input type="password" id="password" name="password" class="form-control" 
+                                placeholder="<%= t('auth:passwordPlaceholder') %>" 
+                                required autocomplete="current-password">
+                            <button type="button" class="password-toggle" aria-label="<%= t('auth:togglePasswordVisibility') %>">
+                                <span class="icon-eye"></span>
+                            </button>
+                        </div>
+                        <% if (locals.errors && locals.errors.password) { %>
+                            <span class="form-error"><%= locals.errors.password %></span>
+                        <% } %>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="checkbox-wrapper">
+                            <input type="checkbox" id="remember" name="remember" class="form-checkbox"
+                                <% if (locals.formData && locals.formData.remember) { %>checked<% } %>>
+                            <label for="remember" class="checkbox-label">
+                                <%= t('auth:rememberMe') %>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <%= t('auth:loginButton') %>
+                        </button>
+                    </div>
+                </form>
+                
+                <% if (config.auth.socialLogin) { %>
+                    <div class="social-login">
+                        <div class="divider">
+                            <span class="divider-text"><%= t('auth:orContinueWith') %></span>
+                        </div>
+                        
+                        <div class="social-buttons">
+                            <% if (config.auth.google) { %>
+                                <a href="/auth/google" class="btn btn-social btn-google">
+                                    <span class="icon-google"></span>
+                                    Google
+                                </a>
+                            <% } %>
+                            
+                            <% if (config.auth.facebook) { %>
+                                <a href="/auth/facebook" class="btn btn-social btn-facebook">
+                                    <span class="icon-facebook"></span>
+                                    Facebook
+                                </a>
+                            <% } %>
+                            
+                            <% if (config.auth.twitter) { %>
+                                <a href="/auth/twitter" class="btn btn-social btn-twitter">
+                                    <span class="icon-twitter"></span>
+                                    Twitter
+                                </a>
+                            <% } %>
+                        </div>
+                    </div>
+                <% } %>
+                
+                <div class="auth-footer">
+                    <p class="auth-link-text">
+                        <%= t('auth:noAccount') %> 
+                        <a href="/auth/register" class="auth-link">
+                            <%= t('auth:signUpNow') %>
+                        </a>
+                    </p>
+                </div>
+            </div>
+            
+            <div class="auth-image">
+                <div class="image-container">
+                    <img src="/images/auth/login-image.svg" alt="<%= t('auth:loginImageAlt') %>" class="auth-illustration">
+                </div>
+                <div class="image-caption">
+                    <h2 class="caption-title"><%= t('auth:loginImageTitle') %></h2>
+                    <p class="caption-text"><%= t('auth:loginImageText') %></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // 密码可见性切换
+        const passwordToggle = document.querySelector('.password-toggle');
+        const passwordInput = document.getElementById('password');
+        
+        if (passwordToggle && passwordInput) {
+            passwordToggle.addEventListener('click', function() {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                
+                // 切换图标
+                const icon = this.querySelector('span');
+                if (type === 'password') {
+                    icon.classList.remove('icon-eye-off');
+                    icon.classList.add('icon-eye');
+                } else {
+                    icon.classList.remove('icon-eye');
+                    icon.classList.add('icon-eye-off');
+                }
+            });
+        }
+    });
+</script> 

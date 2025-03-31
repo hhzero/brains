@@ -1,0 +1,237 @@
+<%- include('../layouts/main', { title: t('games:historyTitle'), description: t('games:historyDescription') }) %>
+
+<div class="history-container">
+    <div class="hero-section">
+        <div class="container">
+            <h1 class="hero-title"><%= t('games:historyTitle') %></h1>
+            <p class="hero-description"><%= t('games:historyDescription') %></p>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- 总体统计信息 -->
+        <div class="section-card summary-card">
+            <h2 class="section-title"><%= t('games:summary') %></h2>
+            <div class="summary-stats">
+                <div class="stat-box">
+                    <div class="stat-icon"><i class="icon-trophy"></i></div>
+                    <div class="stat-info">
+                        <div class="stat-value"><%= totalScore %></div>
+                        <div class="stat-label"><%= t('games:totalScore') %></div>
+                    </div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-icon"><i class="icon-clock"></i></div>
+                    <div class="stat-info">
+                        <div class="stat-value"><%= totalTimeSpent %></div>
+                        <div class="stat-label"><%= t('games:totalTimeSpent') %></div>
+                    </div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-icon"><i class="icon-gamepad"></i></div>
+                    <div class="stat-info">
+                        <div class="stat-value"><%= gameStats.length %></div>
+                        <div class="stat-label"><%= t('games:gamesPlayed') %></div>
+                    </div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-icon"><i class="icon-calendar"></i></div>
+                    <div class="stat-info">
+                        <div class="stat-value"><%= recentSessions.length %></div>
+                        <div class="stat-label"><%= t('games:recentGames') %></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 游戏统计信息 -->
+        <div class="section-card">
+            <h2 class="section-title"><%= t('games:gameStats') %></h2>
+            
+            <% if (gameStats && gameStats.length > 0) { %>
+                <div class="game-stats-container">
+                    <div class="stats-controls">
+                        <div class="sort-selector">
+                            <label for="sortBy"><%= t('games:sortBy') %>:</label>
+                            <select id="sortBy" class="form-select">
+                                <option value="bestScore"><%= t('games:bestScore') %></option>
+                                <option value="playCount"><%= t('games:playCount') %></option>
+                                <option value="lastPlayed"><%= t('games:lastPlayed') %></option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="game-stats-grid">
+                        <% gameStats.forEach(stat => { %>
+                            <div class="game-stat-card" data-game-id="<%= stat.gameId %>" 
+                                 data-best-score="<%= stat.bestScore %>" 
+                                 data-play-count="<%= stat.playCount %>" 
+                                 data-last-played="<%= new Date(stat.lastPlayed).getTime() %>">
+                                <div class="game-stat-header">
+                                    <h3 class="game-title"><%= stat.gameName %></h3>
+                                    <span class="game-category"><%= t('games:' + stat.gameCategory + 'Games') %></span>
+                                </div>
+                                <div class="game-stat-body">
+                                    <div class="stat-row">
+                                        <div class="stat-item">
+                                            <div class="stat-label"><%= t('games:bestScore') %></div>
+                                            <div class="stat-value highlight"><%= stat.bestScore %></div>
+                                        </div>
+                                        <div class="stat-item">
+                                            <div class="stat-label"><%= t('games:playCount') %></div>
+                                            <div class="stat-value"><%= stat.playCount %></div>
+                                        </div>
+                                    </div>
+                                    <div class="stat-row">
+                                        <div class="stat-item">
+                                            <div class="stat-label"><%= t('games:highestLevel') %></div>
+                                            <div class="stat-value">
+                                                <% if (stat.gameId === 'n-back') { %>
+                                                    N=<%= stat.highestLevel.replace('level-', '') %>
+                                                <% } else { %>
+                                                    <%= t('games:' + stat.highestLevel) %>
+                                                <% } %>
+                                            </div>
+                                        </div>
+                                        <div class="stat-item">
+                                            <div class="stat-label"><%= t('games:totalTime') %></div>
+                                            <div class="stat-value"><%= stat.formattedTime %></div>
+                                        </div>
+                                    </div>
+                                    <div class="stat-row">
+                                        <div class="stat-item full-width">
+                                            <div class="stat-label"><%= t('games:lastPlayed') %></div>
+                                            <div class="stat-value"><%= stat.formattedLastPlayed %></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="game-stat-footer">
+                                    <a href="/games/play/<%= stat.gameId %>" class="btn btn-primary btn-sm">
+                                        <i class="icon-play"></i> <%= t('games:playNow') %>
+                                    </a>
+                                    <a href="/games/leaderboard/<%= stat.gameId %>" class="btn btn-outline btn-sm">
+                                        <i class="icon-trophy"></i> <%= t('games:leaderboard') %>
+                                    </a>
+                                </div>
+                            </div>
+                        <% }); %>
+                    </div>
+                </div>
+            <% } else { %>
+                <div class="no-data-message">
+                    <div class="message-icon">
+                        <i class="icon-gamepad"></i>
+                    </div>
+                    <h3><%= t('games:noGameStats') %></h3>
+                    <p><%= t('games:startPlaying') %></p>
+                    <a href="/games" class="btn btn-primary">
+                        <%= t('games:browseGames') %>
+                    </a>
+                </div>
+            <% } %>
+        </div>
+
+        <!-- 最近游戏记录 -->
+        <div class="section-card">
+            <h2 class="section-title"><%= t('games:recentGames') %></h2>
+            
+            <% if (recentSessions && recentSessions.length > 0) { %>
+                <div class="recent-sessions-container">
+                    <table class="recent-sessions-table">
+                        <thead>
+                            <tr>
+                                <th><%= t('games:game') %></th>
+                                <th><%= t('games:score') %></th>
+                                <th><%= t('games:level') %></th>
+                                <th><%= t('games:time') %></th>
+                                <th><%= t('games:date') %></th>
+                                <th><%= t('games:actions') %></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% recentSessions.forEach(session => { %>
+                                <tr>
+                                    <td>
+                                        <div class="game-name">
+                                            <span class="game-icon"><i class="icon-<%= session.gameCategory %>"></i></span>
+                                            <%= session.gameName %>
+                                        </div>
+                                    </td>
+                                    <td><%= session.score %></td>
+                                    <td>
+                                        <% if (session.gameId === 'n-back') { %>
+                                            N=<%= session.difficulty.replace('level-', '') %>
+                                        <% } else { %>
+                                            <%= t('games:' + session.difficulty) %>
+                                        <% } %>
+                                    </td>
+                                    <td><%= session.formattedTime %></td>
+                                    <td><%= session.formattedDate %></td>
+                                    <td>
+                                        <a href="/games/play/<%= session.gameId %>" class="btn btn-sm btn-icon" title="<%= t('games:playAgain') %>">
+                                            <i class="icon-play"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+            <% } else { %>
+                <div class="no-data-message">
+                    <div class="message-icon">
+                        <i class="icon-history"></i>
+                    </div>
+                    <h3><%= t('games:noRecentGames') %></h3>
+                    <p><%= t('games:startPlaying') %></p>
+                    <a href="/games" class="btn btn-primary">
+                        <%= t('games:browseGames') %>
+                    </a>
+                </div>
+            <% } %>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // 排序功能
+        const sortSelect = document.getElementById('sortBy');
+        if (sortSelect) {
+            sortSelect.addEventListener('change', function() {
+                sortGameStats(this.value);
+            });
+            
+            // 初始排序
+            sortGameStats('bestScore');
+        }
+        
+        function sortGameStats(sortBy) {
+            const container = document.querySelector('.game-stats-grid');
+            const items = Array.from(container.children);
+            
+            items.sort((a, b) => {
+                let aValue, bValue;
+                
+                if (sortBy === 'lastPlayed') {
+                    aValue = parseInt(a.dataset.lastPlayed);
+                    bValue = parseInt(b.dataset.lastPlayed);
+                    return bValue - aValue; // 降序，最近的在前
+                } else if (sortBy === 'playCount') {
+                    aValue = parseInt(a.dataset.playCount);
+                    bValue = parseInt(b.dataset.playCount);
+                    return bValue - aValue; // 降序，最多的在前
+                } else { // bestScore
+                    aValue = parseInt(a.dataset.bestScore);
+                    bValue = parseInt(b.dataset.bestScore);
+                    return bValue - aValue; // 降序，最高的在前
+                }
+            });
+            
+            // 重新添加排序后的元素
+            items.forEach(item => {
+                container.appendChild(item);
+            });
+        }
+    });
+</script> 

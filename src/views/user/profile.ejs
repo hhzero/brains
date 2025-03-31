@@ -1,0 +1,256 @@
+<%- include('../layouts/main', { title: t('user:profileTitle'), description: t('user:profileDescription') }) %>
+
+<div class="profile-container">
+    <div class="hero-section">
+        <div class="container">
+            <h1 class="hero-title"><%= t('user:profileTitle') %></h1>
+            <p class="hero-description"><%= t('user:profileDescription') %></p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="profile-content">
+            <!-- 左侧边栏 -->
+            <div class="profile-sidebar">
+                <div class="profile-card">
+                    <div class="profile-avatar">
+                        <% if (user.avatar) { %>
+                            <img src="<%= user.avatar %>" alt="<%= user.username %>" class="avatar-img">
+                        <% } else { %>
+                            <div class="avatar-placeholder">
+                                <%= user.username.charAt(0).toUpperCase() %>
+                            </div>
+                        <% } %>
+                    </div>
+                    <div class="profile-info">
+                        <h2 class="profile-name"><%= user.username %></h2>
+                        <p class="profile-date">
+                            <i class="icon-calendar"></i> 
+                            <%= t('user:memberSince') %>: <%= user.formattedJoinDate %>
+                        </p>
+                    </div>
+                    <div class="profile-stats">
+                        <div class="stat-item">
+                            <div class="stat-value"><%= user.totalGamesPlayed %></div>
+                            <div class="stat-label"><%= t('user:gamesPlayed') %></div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value"><%= user.totalScore %></div>
+                            <div class="stat-label"><%= t('user:totalScore') %></div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value"><%= user.achievements.length %></div>
+                            <div class="stat-label"><%= t('user:achievements') %></div>
+                        </div>
+                    </div>
+                    <div class="profile-actions">
+                        <a href="/user/history" class="btn btn-outline btn-block">
+                            <i class="icon-history"></i> <%= t('user:viewHistory') %>
+                        </a>
+                        <a href="/games" class="btn btn-primary btn-block">
+                            <i class="icon-play"></i> <%= t('user:playGames') %>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 成就展示 -->
+                <div class="section-card">
+                    <h3 class="section-title"><%= t('user:achievements') %></h3>
+                    <% if (user.achievements && user.achievements.length > 0) { %>
+                        <div class="achievements-grid">
+                            <% user.achievements.forEach(achievement => { %>
+                                <div class="achievement-item" title="<%= achievement.name %>">
+                                    <div class="achievement-icon">
+                                        <i class="icon-<%= achievement.icon %>"></i>
+                                    </div>
+                                    <div class="achievement-info">
+                                        <span class="achievement-name"><%= achievement.name %></span>
+                                        <span class="achievement-date"><%= achievement.formattedDate %></span>
+                                    </div>
+                                </div>
+                            <% }) %>
+                        </div>
+                    <% } else { %>
+                        <div class="no-data-message">
+                            <p><%= t('user:noAchievements') %></p>
+                        </div>
+                    <% } %>
+                </div>
+            </div>
+
+            <!-- 右侧内容区 -->
+            <div class="profile-main">
+                <!-- 个人资料编辑表单 -->
+                <div class="section-card">
+                    <h3 class="section-title"><%= t('user:editProfile') %></h3>
+                    <form id="profile-form" action="/user/profile/update" method="POST" class="profile-form">
+                        <div class="form-group">
+                            <label for="username"><%= t('user:username') %></label>
+                            <input type="text" id="username" name="username" class="form-control" value="<%= user.username %>" placeholder="<%= t('user:usernamePlaceholder') %>">
+                        </div>
+                        <div class="form-group">
+                            <label for="email"><%= t('user:email') %></label>
+                            <input type="email" id="email" name="email" class="form-control" value="<%= user.email %>" placeholder="<%= t('user:emailPlaceholder') %>" readonly>
+                            <small class="form-text text-muted"><%= t('user:emailChangeNote') %></small>
+                        </div>
+                        <div class="form-group">
+                            <label for="language"><%= t('user:preferredLanguage') %></label>
+                            <select id="language" name="language" class="form-control">
+                                <option value="en" <%= user.language === 'en' ? 'selected' : '' %>><%= t('user:english') %></option>
+                                <option value="zh" <%= user.language === 'zh' ? 'selected' : '' %>><%= t('user:chinese') %></option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="bio"><%= t('user:bio') %></label>
+                            <textarea id="bio" name="bio" class="form-control" rows="3" placeholder="<%= t('user:bioPlaceholder') %>"><%= user.bio || '' %></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="icon-save"></i> <%= t('user:saveChanges') %>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- 密码修改表单 -->
+                <div class="section-card">
+                    <h3 class="section-title"><%= t('user:changePassword') %></h3>
+                    <form id="password-form" action="/user/password/update" method="POST" class="password-form">
+                        <div class="form-group">
+                            <label for="currentPassword"><%= t('user:currentPassword') %></label>
+                            <input type="password" id="currentPassword" name="currentPassword" class="form-control" placeholder="<%= t('user:currentPasswordPlaceholder') %>">
+                        </div>
+                        <div class="form-group">
+                            <label for="newPassword"><%= t('user:newPassword') %></label>
+                            <input type="password" id="newPassword" name="newPassword" class="form-control" placeholder="<%= t('user:newPasswordPlaceholder') %>">
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPassword"><%= t('user:confirmPassword') %></label>
+                            <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="<%= t('user:confirmPasswordPlaceholder') %>">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="icon-lock"></i> <%= t('user:updatePassword') %>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- 通知设置 -->
+                <div class="section-card">
+                    <h3 class="section-title"><%= t('user:notificationSettings') %></h3>
+                    <form id="notifications-form" action="/user/notifications/update" method="POST" class="notifications-form">
+                        <div class="form-check">
+                            <input type="checkbox" id="emailNotifications" name="emailNotifications" class="form-check-input" <%= user.preferences?.emailNotifications ? 'checked' : '' %>>
+                            <label for="emailNotifications" class="form-check-label"><%= t('user:emailNotifications') %></label>
+                            <small class="form-text text-muted"><%= t('user:emailNotificationsDesc') %></small>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" id="progressReminders" name="progressReminders" class="form-check-input" <%= user.preferences?.progressReminders ? 'checked' : '' %>>
+                            <label for="progressReminders" class="form-check-label"><%= t('user:progressReminders') %></label>
+                            <small class="form-text text-muted"><%= t('user:progressRemindersDesc') %></small>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" id="newGamesNotifications" name="newGamesNotifications" class="form-check-input" <%= user.preferences?.newGamesNotifications ? 'checked' : '' %>>
+                            <label for="newGamesNotifications" class="form-check-label"><%= t('user:newGamesNotifications') %></label>
+                            <small class="form-text text-muted"><%= t('user:newGamesNotificationsDesc') %></small>
+                        </div>
+                        <div class="form-group mt-3">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="icon-bell"></i> <%= t('user:saveNotificationSettings') %>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // 表单验证
+        const profileForm = document.getElementById('profile-form');
+        const passwordForm = document.getElementById('password-form');
+        
+        if (profileForm) {
+            profileForm.addEventListener('submit', function(e) {
+                const username = document.getElementById('username').value.trim();
+                if (!username) {
+                    e.preventDefault();
+                    showNotification('<%= t("user:usernameRequired") %>', 'error');
+                }
+            });
+        }
+        
+        if (passwordForm) {
+            passwordForm.addEventListener('submit', function(e) {
+                const currentPassword = document.getElementById('currentPassword').value;
+                const newPassword = document.getElementById('newPassword').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
+                
+                if (!currentPassword) {
+                    e.preventDefault();
+                    showNotification('<%= t("user:currentPasswordRequired") %>', 'error');
+                    return;
+                }
+                
+                if (!newPassword) {
+                    e.preventDefault();
+                    showNotification('<%= t("user:newPasswordRequired") %>', 'error');
+                    return;
+                }
+                
+                if (newPassword !== confirmPassword) {
+                    e.preventDefault();
+                    showNotification('<%= t("user:passwordMismatch") %>', 'error');
+                    return;
+                }
+                
+                if (newPassword.length < 8) {
+                    e.preventDefault();
+                    showNotification('<%= t("user:passwordTooShort") %>', 'error');
+                    return;
+                }
+            });
+        }
+        
+        // 通知显示函数
+        function showNotification(message, type) {
+            // 获取通知容器，如果不存在则创建
+            let container = document.querySelector('.notification-container');
+            if (!container) {
+                container = document.createElement('div');
+                container.className = 'notification-container';
+                document.body.appendChild(container);
+            }
+            
+            // 创建通知元素
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.innerHTML = `
+                <div class="notification-content">
+                    <span>${message}</span>
+                </div>
+                <button class="notification-close">&times;</button>
+            `;
+            
+            // 添加到容器
+            container.appendChild(notification);
+            
+            // 关闭按钮点击事件
+            const closeButton = notification.querySelector('.notification-close');
+            closeButton.addEventListener('click', function() {
+                notification.remove();
+            });
+            
+            // 3秒后自动关闭
+            setTimeout(function() {
+                notification.classList.add('fade-out');
+                setTimeout(function() {
+                    notification.remove();
+                }, 300);
+            }, 3000);
+        }
+    });
+</script> 

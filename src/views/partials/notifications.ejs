@@ -1,0 +1,59 @@
+<div class="notification-container">
+    <% if (locals.flashMessages) { %>
+        <% if (locals.flashMessages.success) { %>
+            <div class="notification notification-success" role="alert">
+                <div class="notification-icon">
+                    <span class="icon-check-circle"></span>
+                </div>
+                <div class="notification-content">
+                    <p class="notification-message"><%= locals.flashMessages.success %></p>
+                </div>
+                <button class="notification-close" aria-label="<%= t('common:close') %>">
+                    <span class="icon-close"></span>
+                </button>
+            </div>
+        <% } %>
+        
+        <% if (locals.flashMessages.error) { %>
+            <div class="notification notification-error" role="alert">
+                <div class="notification-icon">
+                    <span class="icon-alert-circle"></span>
+                </div>
+                <div class="notification-content">
+                    <p class="notification-message"><%= locals.flashMessages.error %></p>
+                </div>
+                <button class="notification-close" aria-label="<%= t('common:close') %>">
+                    <span class="icon-close"></span>
+                </button>
+            </div>
+        <% } %>
+        
+        <% if (locals.flashMessages.info) { %>
+            <div class="notification notification-info" role="alert">
+                <div class="notification-icon">
+                    <span class="icon-info"></span>
+                </div>
+                <div class="notification-content">
+                    <p class="notification-message"><%= locals.flashMessages.info %></p>
+                </div>
+                <button class="notification-close" aria-label="<%= t('common:close') %>">
+                    <span class="icon-close"></span>
+                </button>
+            </div>
+        <% } %>
+        
+        <% if (locals.flashMessages.warning) { %>
+            <div class="notification notification-warning" role="alert">
+                <div class="notification-icon">
+                    <span class="icon-alert-triangle"></span>
+                </div>
+                <div class="notification-content">
+                    <p class="notification-message"><%= locals.flashMessages.warning %></p>
+                </div>
+                <button class="notification-close" aria-label="<%= t('common:close') %>">
+                    <span class="icon-close"></span>
+                </button>
+            </div>
+        <% } %>
+    <% } %>
+</div> 

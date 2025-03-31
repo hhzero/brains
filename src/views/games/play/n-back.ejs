@@ -1,0 +1,97 @@
+<%- include('../../layouts/main', { title: t('games:n-backTitle'), description: t('games:n-backDescription'), additionalStyles: ['/css/games.css'] }) %>
+
+<div class="game-container">
+  <div id="n-back-game" class="n-back-game" data-n-level="2" data-position-match="true" data-letter-match="true">
+    <div class="game-controls">
+      <div class="game-info">
+        <div class="info-box">
+          <div class="info-label"><%= t('games:score') %></div>
+          <div id="score-display" class="info-value">0</div>
+        </div>
+        <div class="info-box">
+          <div class="info-label"><%= t('games:trial') %></div>
+          <div id="trial-display" class="info-value">0/25</div>
+        </div>
+        <div class="info-box">
+          <div class="info-label"><%= t('games:nLevel') %></div>
+          <div id="n-level-display" class="info-value">2</div>
+        </div>
+      </div>
+      <div class="game-buttons">
+        <button id="start-button" class="btn btn-primary">
+          <i class="icon-play"></i> <%= t('games:start') %>
+        </button>
+        <button id="pause-button" class="btn btn-outline">
+          <i class="icon-pause"></i> <%= t('games:pause') %>
+        </button>
+        <button id="reset-button" class="btn btn-outline">
+          <i class="icon-refresh"></i> <%= t('games:reset') %>
+        </button>
+      </div>
+    </div>
+    
+    <div id="game-board" class="game-board">
+      <div id="n-back-grid" class="n-back-grid">
+        <!-- 9个单元格将由JavaScript动态生成 -->
+      </div>
+      
+      <!-- 游戏状态窗口 -->
+      <div id="game-status" class="game-status">
+        <h2 id="status-title" class="status-title"></h2>
+        <p id="status-description" class="status-description"></p>
+        <button id="action-button" class="btn btn-primary btn-lg" data-action="start"></button>
+      </div>
+    </div>
+    
+    <div class="game-answers">
+      <button id="position-match-button" class="answer-button position" disabled>
+        <span class="key-hint">A</span> <%= t('games:positionMatch') %>
+      </button>
+      <button id="letter-match-button" class="answer-button letter" disabled>
+        <span class="key-hint">L</span> <%= t('games:letterMatch') %>
+      </button>
+    </div>
+    
+    <div class="difficulty-select">
+      <div class="difficulty-label"><%= t('games:selectDifficulty') %></div>
+      <div class="difficulty-options">
+        <div class="difficulty-option" data-level="1">1-back</div>
+        <div class="difficulty-option active" data-level="2">2-back</div>
+        <div class="difficulty-option" data-level="3">3-back</div>
+        <div class="difficulty-option" data-level="4">4-back</div>
+      </div>
+    </div>
+    
+    <div class="game-instructions">
+      <h3 class="instructions-title"><%= t('games:howToPlay') %></h3>
+      <p class="instructions-text">
+        <%= t('games:n-backInstructions') %>
+      </p>
+      <p class="instructions-text">
+        <span class="instructions-highlight"><%= t('games:keyboardControls') %>:</span> 
+        <%= t('games:n-backKeyboardInstructions') %>
+      </p>
+    </div>
+  </div>
+</div>
+
+<script src="/js/games/n-back.js"></script>
+<script>
+  // 保存游戏得分的函数
+  window.saveGameScore = function(gameData) {
+    fetch('/api/games/save-score', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(gameData)
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Score saved:', data);
+    })
+    .catch(error => {
+      console.error('Error saving score:', error);
+    });
+  };
+</script> 

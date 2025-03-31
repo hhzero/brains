@@ -1,0 +1,213 @@
+<%- include('./layouts/main', { title: t('about:title'), description: t('about:description') }) %>
+
+<div class="about-container">
+    <!-- 英雄部分 -->
+    <div class="hero-section">
+        <div class="container">
+            <h1 class="hero-title"><%= t('about:title') %></h1>
+            <p class="hero-description"><%= t('about:heroText') %></p>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- 使命和愿景 -->
+        <section class="section-card">
+            <div class="section-header">
+                <h2 class="section-title"><%= t('about:missionTitle') %></h2>
+            </div>
+            <div class="section-content">
+                <div class="mission-box">
+                    <div class="mission-icon">
+                        <i class="icon-target"></i>
+                    </div>
+                    <div class="mission-text">
+                        <h3><%= t('about:missionHeading') %></h3>
+                        <p><%= t('about:missionText') %></p>
+                    </div>
+                </div>
+                <div class="mission-box">
+                    <div class="mission-icon">
+                        <i class="icon-eye"></i>
+                    </div>
+                    <div class="mission-text">
+                        <h3><%= t('about:visionHeading') %></h3>
+                        <p><%= t('about:visionText') %></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 我们的故事 -->
+        <section class="section-card">
+            <div class="section-header">
+                <h2 class="section-title"><%= t('about:storyTitle') %></h2>
+            </div>
+            <div class="section-content">
+                <div class="story-content">
+                    <p><%= t('about:storyPara1') %></p>
+                    <p><%= t('about:storyPara2') %></p>
+                    <p><%= t('about:storyPara3') %></p>
+                </div>
+                <div class="story-image">
+                    <img src="/images/about/our-story.jpg" alt="<%= t('about:storyImageAlt') %>" class="img-fluid rounded">
+                </div>
+            </div>
+        </section>
+
+        <!-- 科学依据 -->
+        <section class="section-card">
+            <div class="section-header">
+                <h2 class="section-title"><%= t('about:scienceTitle') %></h2>
+            </div>
+            <div class="section-content">
+                <div class="science-content">
+                    <p><%= t('about:sciencePara1') %></p>
+                    <div class="science-stats">
+                        <div class="stat-card">
+                            <div class="stat-number">20+</div>
+                            <div class="stat-text"><%= t('about:scienceStat1') %></div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">85%</div>
+                            <div class="stat-text"><%= t('about:scienceStat2') %></div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">100+</div>
+                            <div class="stat-text"><%= t('about:scienceStat3') %></div>
+                        </div>
+                    </div>
+                    <p><%= t('about:sciencePara2') %></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 我们的团队 -->
+        <section class="section-card">
+            <div class="section-header">
+                <h2 class="section-title"><%= t('about:teamTitle') %></h2>
+                <p class="section-description"><%= t('about:teamDescription') %></p>
+            </div>
+            <div class="section-content">
+                <div class="team-grid">
+                    <!-- 团队成员 1 -->
+                    <div class="team-member">
+                        <div class="member-photo">
+                            <img src="/images/team/team-1.jpg" alt="<%= t('about:team1Name') %>" class="img-fluid rounded-circle">
+                        </div>
+                        <div class="member-info">
+                            <h3 class="member-name"><%= t('about:team1Name') %></h3>
+                            <p class="member-title"><%= t('about:team1Title') %></p>
+                            <p class="member-bio"><%= t('about:team1Bio') %></p>
+                        </div>
+                    </div>
+                    
+                    <!-- 团队成员 2 -->
+                    <div class="team-member">
+                        <div class="member-photo">
+                            <img src="/images/team/team-2.jpg" alt="<%= t('about:team2Name') %>" class="img-fluid rounded-circle">
+                        </div>
+                        <div class="member-info">
+                            <h3 class="member-name"><%= t('about:team2Name') %></h3>
+                            <p class="member-title"><%= t('about:team2Title') %></p>
+                            <p class="member-bio"><%= t('about:team2Bio') %></p>
+                        </div>
+                    </div>
+                    
+                    <!-- 团队成员 3 -->
+                    <div class="team-member">
+                        <div class="member-photo">
+                            <img src="/images/team/team-3.jpg" alt="<%= t('about:team3Name') %>" class="img-fluid rounded-circle">
+                        </div>
+                        <div class="member-info">
+                            <h3 class="member-name"><%= t('about:team3Name') %></h3>
+                            <p class="member-title"><%= t('about:team3Title') %></p>
+                            <p class="member-bio"><%= t('about:team3Bio') %></p>
+                        </div>
+                    </div>
+                    
+                    <!-- 团队成员 4 -->
+                    <div class="team-member">
+                        <div class="member-photo">
+                            <img src="/images/team/team-4.jpg" alt="<%= t('about:team4Name') %>" class="img-fluid rounded-circle">
+                        </div>
+                        <div class="member-info">
+                            <h3 class="member-name"><%= t('about:team4Name') %></h3>
+                            <p class="member-title"><%= t('about:team4Title') %></p>
+                            <p class="member-bio"><%= t('about:team4Bio') %></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 联系我们 -->
+        <section class="section-card">
+            <div class="section-header">
+                <h2 class="section-title"><%= t('about:contactTitle') %></h2>
+                <p class="section-description"><%= t('about:contactDescription') %></p>
+            </div>
+            <div class="section-content">
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="icon-envelope"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4><%= t('about:emailHeading') %></h4>
+                                <p>support@braintrainer.com</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="icon-phone"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4><%= t('about:phoneHeading') %></h4>
+                                <p>+1 (800) 123-4567</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="icon-map-marker"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4><%= t('about:addressHeading') %></h4>
+                                <p>
+                                    123 Cognitive Street, Suite 456<br>
+                                    San Francisco, CA 94103<br>
+                                    United States
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contact-form-container">
+                        <form id="contact-form" action="/contact/submit" method="POST">
+                            <div class="form-group">
+                                <label for="name"><%= t('about:formName') %></label>
+                                <input type="text" id="name" name="name" class="form-control" required placeholder="<%= t('about:formNamePlaceholder') %>">
+                            </div>
+                            <div class="form-group">
+                                <label for="email"><%= t('about:formEmail') %></label>
+                                <input type="email" id="email" name="email" class="form-control" required placeholder="<%= t('about:formEmailPlaceholder') %>">
+                            </div>
+                            <div class="form-group">
+                                <label for="subject"><%= t('about:formSubject') %></label>
+                                <input type="text" id="subject" name="subject" class="form-control" required placeholder="<%= t('about:formSubjectPlaceholder') %>">
+                            </div>
+                            <div class="form-group">
+                                <label for="message"><%= t('about:formMessage') %></label>
+                                <textarea id="message" name="message" class="form-control" rows="5" required placeholder="<%= t('about:formMessagePlaceholder') %>"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary btn-block">
+                                    <i class="icon-paper-plane"></i> <%= t('about:formSubmit') %>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div> 

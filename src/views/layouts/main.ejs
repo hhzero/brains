@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="<%= locals.currentLanguage || 'en' %>">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <!-- 页面标题和描述 -->
+    <title><%= locals.title %> | <%= config.app.name %></title>
+    <meta name="description" content="<%= locals.description || config.app.description %>">
+    
+    <!-- SEO 元标签 -->
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="<%= config.app.author %>">
+    <meta name="keywords" content="<%= locals.keywords || config.app.keywords %>">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="<%= config.app.url + (locals.currentUrl || '') %>">
+    <meta property="og:title" content="<%= locals.title %> | <%= config.app.name %>">
+    <meta property="og:description" content="<%= locals.description || config.app.description %>">
+    <meta property="og:image" content="<%= locals.ogImage || config.app.ogImage %>">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="<%= config.app.url + (locals.currentUrl || '') %>">
+    <meta property="twitter:title" content="<%= locals.title %> | <%= config.app.name %>">
+    <meta property="twitter:description" content="<%= locals.description || config.app.description %>">
+    <meta property="twitter:image" content="<%= locals.ogImage || config.app.ogImage %>">
+    
+    <!-- 网站图标 -->
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    
+    <!-- CSS 样式 -->
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link rel="stylesheet" href="/css/main.css">
+    
+    <!-- 页面特定的 CSS -->
+    <% if (locals.styles && locals.styles.length > 0) { %>
+        <% locals.styles.forEach(function(style) { %>
+            <link rel="stylesheet" href="<%= style %>">
+        <% }); %>
+    <% } %>
+    
+    <!-- 谷歌字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- 网站图标字体 -->
+    <link rel="stylesheet" href="/css/icons.css">
+    
+    <!-- 预加载关键资源 -->
+    <link rel="preload" href="/images/logo.png" as="image">
+    
+    <!-- 结构化数据 -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "<%= config.app.name %>",
+        "url": "<%= config.app.url %>",
+        "description": "<%= config.app.description %>",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "<%= config.app.url %>/search?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+    }
+    </script>
+</head>
+<body class="<%= locals.bodyClass || '' %>">
+    <!-- 屏幕阅读器跳过导航链接 -->
+    <a href="#main-content" class="skip-to-content">
+        <%= t('common:skipToContent') %>
+    </a>
+    
+    <!-- 头部 -->
+    <%- include('../partials/header') %>
+    
+    <!-- 主要内容区域 -->
+    <main id="main-content" role="main">
+        <!-- 页面通知区域 -->
+        <%- include('../partials/notifications') %>
+        
+        <!-- 页面内容插入点 -->
+        <%- body %>
+    </main>
+    
+    <!-- 页脚 -->
+    <%- include('../partials/footer') %>
+    
+    <!-- JavaScript -->
+    <script src="/js/vendor/modernizr.min.js"></script>
+    <script src="/js/main.js"></script>
+    
+    <!-- 页面特定的 JavaScript -->
+    <% if (locals.scripts && locals.scripts.length > 0) { %>
+        <% locals.scripts.forEach(function(script) { %>
+            <script src="<%= script %>"></script>
+        <% }); %>
+    <% } %>
+    
+    <!-- 分析代码 -->
+    <% if (config.app.env === 'production' && config.analytics.enabled) { %>
+        <%- include('../partials/analytics') %>
+    <% } %>
+</body>
+</html> 
