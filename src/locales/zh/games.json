@@ -136,5 +136,81 @@
   "noRecentGames": "暂无最近游戏",
   "game": "游戏",
   "date": "日期",
-  "actions": "操作"
+  "actions": "操作",
+  
+  "categories": {
+    "memory": {
+      "name": "记忆力训练",
+      "description": "通过有趣的练习提升记忆能力"
+    },
+    "attention": {
+      "name": "注意力训练", 
+      "description": "提高专注力和集中力"
+    },
+    "logic": {
+      "name": "逻辑训练",
+      "description": "培养问题解决和推理能力"
+    },
+    "language": {
+      "name": "语言训练",
+      "description": "提升语言表达和沟通能力"
+    },
+    "math": {
+      "name": "数学训练", 
+      "description": "加强数字运算和计算能力"
+    }
+  },
+  
+  "memoryCard": "记忆卡片",
+  "numberMemory": "数字记忆",
+  "imageMemory": "图像记忆",
+  "nBack": "N-Back训练",
+  
+  "attentionFocus": "注意力集中",
+  "colorMatch": "颜色匹配",
+  "targetTracking": "目标追踪",
+  
+  "sudoku": "数独",
+  "logicPuzzle": "逻辑谜题",
+  "shapePuzzle": "形状拼图",
+  
+  "wordChallenge": "词汇挑战",
+  "grammarFix": "语法修正",
+  "readingComprehension": "阅读理解",
+  
+  "quickCalculation": "快速计算",
+  "mathPuzzle": "数学谜题",
+  "geometryCalculation": "几何计算",
+  
+  "pauseGame": "暂停游戏",
+  "resumeGame": "继续游戏",
+  "quitGame": "退出游戏",
+  "gameOver": "游戏结束",
+  "highScore": "最高分",
+  "points": "分数",
+  
+  "difficulty": {
+    "title": "难度",
+    "easy": "简单",
+    "medium": "中等",
+    "hard": "困难",
+    "expert": "专家"
+  },
+  
+  "feedback": {
+    "correct": "正确!",
+    "incorrect": "错误!",
+    "tryAgain": "再试一次",
+    "excellent": "太棒了!",
+    "goodJob": "做得好!",
+    "keepGoing": "继续加油!"
+  },
+  
+  "tutorial": {
+    "title": "游戏教程",
+    "next": "下一步",
+    "previous": "上一步",
+    "skip": "跳过",
+    "finish": "完成"
+  }
 } 

@@ -15,8 +15,8 @@ const gameController = require('../controllers/gameController');
  */
 router.get('/', (req, res) => {
   res.render('games/categories', { 
-    title: req.t('games:categoriesTitle'),
-    description: req.t('games:categoriesDescription'),
+    title: req.t('games:gamesTitle'),
+    description: req.t('games:gamesDescription'),
     user: req.user,
     config,
     categories: config.gameCategories
@@ -180,11 +180,6 @@ router.get('/:gameId/leaderboard', (req, res) => {
     category,
     leaderboard
   });
-});
-
-// 游戏首页 - 显示所有游戏
-router.get('/', (req, res) => {
-    res.render('games/index');
 });
 
 // 游戏详情页

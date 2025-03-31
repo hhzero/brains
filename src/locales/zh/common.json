@@ -12,7 +12,7 @@
     "viewAll": "查看全部",
     "readMore": "阅读更多",
     "loading": "加载中...",
-    "skipToContent": "跳到内容",
+    "skipToContent": "跳转到主要内容",
     "yes": "是",
     "no": "否",
     "save": "保存",
@@ -24,7 +24,18 @@
     "submit": "提交",
     "confirm": "确认",
     "goBack": "返回",
-    "error": "错误",
+    "error": {
+        "404": {
+            "title": "404 - 页面未找到",
+            "message": "抱歉，您请求的页面不存在。"
+        },
+        "500": {
+            "title": "500 - 服务器错误",
+            "message": "抱歉，服务器处理请求时遇到错误。",
+            "details": "错误详情:"
+        },
+        "backToHome": "返回首页"
+    },
     "success": "成功",
     "warning": "警告",
     "info": "信息",
@@ -43,7 +54,7 @@
     "help": "帮助",
     "feedback": "反馈",
     "profile": "个人资料",
-    "logout": "退出登录",
+    "logout": "登出",
     "login": "登录",
     "register": "注册",
     "forgotPassword": "忘记密码",
@@ -56,5 +67,48 @@
     "explore": "探索",
     "learnMore": "了解更多",
     "siteTitle": "脑力训练 - 锻炼你的思维",
-    "siteDescription": "通过有趣且具有挑战性的认知游戏训练你的大脑"
+    "siteDescription": "通过有趣且具有挑战性的认知游戏训练你的大脑",
+    "title": "大脑训练网站",
+    "description": "提高您的认知能力和大脑健康",
+    "siteName": "脑力训练师",
+    "slogan": "训练你的大脑，提升你的思维",
+    
+    "notFound": "404 - 页面未找到",
+    "notFoundDescription": "抱歉，您访问的页面不存在。",
+    "serverError": "500 - 服务器错误",
+    "serverErrorDescription": "抱歉，服务器出现了问题。请稍后再试。",
+    "returnHome": "返回首页",
+    
+    "footer": {
+        "copyright": "© 2023 大脑训练网站. 保留所有权利.",
+        "terms": "服务条款",
+        "privacy": "隐私政策",
+        "followUs": "关注我们"
+    },
+    "notification": {
+        "success": "成功",
+        "error": "错误",
+        "warning": "警告",
+        "info": "信息",
+        "close": "关闭"
+    },
+    "categories": {
+        "memory": "记忆力训练",
+        "attention": "注意力训练",
+        "logic": "逻辑思维",
+        "language": "语言能力",
+        "math": "数学能力"
+    },
+    "difficulty": {
+        "easy": "简单",
+        "medium": "中等",
+        "hard": "困难",
+        "expert": "专家"
+    },
+    "cta": {
+        "playNow": "立即开始",
+        "learnMore": "了解更多",
+        "signUp": "注册",
+        "startTraining": "开始训练"
+    }
 } 

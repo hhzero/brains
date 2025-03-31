@@ -1,0 +1,46 @@
+{
+  "heroTitle": "提升您的认知能力",
+  "heroDescription": "通过科学设计的大脑训练游戏，让您的思维更加敏捷、记忆力更加出色",
+  "startTraining": "开始训练",
+  "learnMore": "了解更多",
+  "trainingPrograms": "训练项目",
+  "viewGames": "查看游戏",
+  "whyChooseUs": "为什么选择我们",
+  "features": {
+    "scientific": {
+      "title": "科学设计",
+      "description": "基于认知科学研究，确保训练效果"
+    },
+    "personalized": {
+      "title": "个性化训练",
+      "description": "根据您的表现自动调整难度"
+    },
+    "progress": {
+      "title": "进度追踪",
+      "description": "详细记录您的训练历程"
+    },
+    "flexible": {
+      "title": "灵活安排",
+      "description": "随时随地进行训练"
+    }
+  },
+  "userFeedback": "用户反馈",
+  "testimonials": {
+    "default": {
+      "user1": {
+        "name": "李先生",
+        "text": "每天训练15分钟，两个月后明显感觉记忆力和注意力都有提升。"
+      },
+      "user2": {
+        "name": "王女士",
+        "text": "游戏设计很有趣，不知不觉就训练了很久。"
+      },
+      "user3": {
+        "name": "张教授",
+        "text": "作为认知科学研究者，我认为这个平台的训练方法非常科学。"
+      }
+    }
+  },
+  "ctaTitle": "立即开始您的大脑训练之旅",
+  "ctaDescription": "每天只需15分钟，让您的大脑保持最佳状态"
+} 

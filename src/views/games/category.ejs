@@ -1,0 +1,39 @@
+<%- include('../partials/header') %>
+
+<main class="container">
+  <section class="category-section">
+    <div class="category-header">
+      <div class="category-icon">
+        <img src="/images/icons/<%= category.icon %>.svg" alt="<%= t(`games:categories.${category.id}.name`) %>">
+      </div>
+      <div class="category-info">
+        <h1><%= t(`games:categories.${category.id}.name`) %></h1>
+        <p class="category-description"><%= t(`games:categories.${category.id}.description`) %></p>
+      </div>
+    </div>
+
+    <div class="games-grid">
+      <% category.games.forEach(game => { %>
+        <div class="game-card">
+          <div class="game-image">
+            <img src="/images/games/<%= game.id %>/thumbnail.jpg" alt="<%= t(`games:${game.id}.title`) %>">
+          </div>
+          <div class="game-info">
+            <h3><%= t(`games:${game.id}.title`) %></h3>
+            <p><%= t(`games:${game.id}.description`) %></p>
+            <div class="game-meta">
+              <span class="difficulty"><%= t('games:difficulty') %>: <%= t(`games:${game.difficulty}`) %></span>
+              <span class="estimated-time"><%= t('games:estimatedTime') %>: <%= game.estimatedTime %> <%= t('games:minutes') %></span>
+            </div>
+            <div class="game-actions">
+              <a href="/games/<%= game.id %>/play" class="btn btn-primary"><%= t('games:startGame') %></a>
+              <a href="/games/<%= game.id %>" class="btn btn-secondary"><%= t('games:viewDetails') %></a>
+            </div>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+  </section>
+</main>
+
+<%- include('../partials/footer') %> 

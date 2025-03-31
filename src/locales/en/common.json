@@ -56,5 +56,26 @@
     "explore": "Explore",
     "learnMore": "Learn More",
     "siteTitle": "Brain Training - Exercise Your Mind",
-    "siteDescription": "Train your brain with fun and challenging cognitive games"
+    "siteDescription": "Train your brain with fun and challenging cognitive games",
+    "title": "Brain Training Platform",
+    "description": "Improve your cognitive abilities with our scientifically-designed brain training games",
+    "siteName": "Brain Trainer",
+    "slogan": "Train Your Brain, Enhance Your Mind",
+    "footer": {
+        "copyright": "© 2024 Brain Training Platform. All rights reserved.",
+        "terms": "Terms of Service",
+        "privacy": "Privacy Policy"
+    },
+    "error": {
+        "404": {
+            "title": "404 - Page Not Found",
+            "message": "Sorry, the page you requested does not exist."
+        },
+        "500": {
+            "title": "500 - Server Error",
+            "message": "Sorry, the server encountered an error while processing your request.",
+            "details": "Error Details:"
+        },
+        "backToHome": "Back to Home"
+    }
 } 

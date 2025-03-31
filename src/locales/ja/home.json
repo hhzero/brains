@@ -1,0 +1,46 @@
+{
+  "heroTitle": "認知能力を向上させる",
+  "heroDescription": "科学的に設計された脳トレーニングゲームで、思考力と記憶力を向上させましょう",
+  "startTraining": "トレーニングを開始",
+  "learnMore": "詳しく見る",
+  "trainingPrograms": "トレーニングプログラム",
+  "viewGames": "ゲームを見る",
+  "whyChooseUs": "選ばれる理由",
+  "features": {
+    "scientific": {
+      "title": "科学的設計",
+      "description": "認知科学研究に基づき、トレーニング効果を確保"
+    },
+    "personalized": {
+      "title": "パーソナライズドトレーニング",
+      "description": "あなたのパフォーマンスに応じて難易度を自動調整"
+    },
+    "progress": {
+      "title": "進捗管理",
+      "description": "トレーニングの履歴を詳細に記録"
+    },
+    "flexible": {
+      "title": "柔軟なスケジュール",
+      "description": "いつでもどこでもトレーニング可能"
+    }
+  },
+  "userFeedback": "ユーザーの声",
+  "testimonials": {
+    "default": {
+      "user1": {
+        "name": "李さん",
+        "text": "毎日15分間のトレーニングを2ヶ月続けたところ、記憶力と集中力が明らかに向上しました。"
+      },
+      "user2": {
+        "name": "王さん",
+        "text": "ゲームデザインが面白くて、気づいたら長時間トレーニングしていました。"
+      },
+      "user3": {
+        "name": "張教授",
+        "text": "認知科学の研究者として、このプラットフォームのトレーニング方法は非常に科学的だと考えています。"
+      }
+    }
+  },
+  "ctaTitle": "脳トレーニングの旅を今すぐ始めましょう",
+  "ctaDescription": "1日わずか15分で、脳を最適な状態に保ちます"
+} 

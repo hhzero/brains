@@ -11,6 +11,23 @@ module.exports = {
     description: '多语言支持的大脑训练网站，提供多种认知训练游戏'
   },
   
+  // 社交媒体链接
+  social: {
+    facebook: 'https://facebook.com/braintraining',
+    twitter: 'https://twitter.com/braintraining',
+    instagram: 'https://instagram.com/braintraining',
+    youtube: 'https://youtube.com/braintraining',
+    linkedin: 'https://linkedin.com/company/braintraining'
+  },
+  
+  // 联系信息
+  contact: {
+    address: '123 Brain Street, Knowledge City, 100000',
+    email: 'contact@braintraining.com',
+    phone: '+1 234 567 8900',
+    workingHours: 'Mon - Fri, 9:00 - 18:00'
+  },
+  
   // 支持的语言列表
   languages: [
     { code: 'en', name: 'English', direction: 'ltr' },
@@ -28,6 +45,7 @@ module.exports = {
     {
       id: 'memory',
       nameKey: 'categories.memory',
+      icon: 'memory',
       games: [
         { id: 'memory-card', nameKey: 'games.memoryCard' },
         { id: 'number-memory', nameKey: 'games.numberMemory' },
@@ -38,6 +56,7 @@ module.exports = {
     {
       id: 'attention',
       nameKey: 'categories.attention',
+      icon: 'attention',
       games: [
         { id: 'attention-focus', nameKey: 'games.attentionFocus' },
         { id: 'color-match', nameKey: 'games.colorMatch' },
@@ -47,6 +66,7 @@ module.exports = {
     {
       id: 'logic',
       nameKey: 'categories.logic',
+      icon: 'logic',
       games: [
         { id: 'sudoku', nameKey: 'games.sudoku' },
         { id: 'logic-puzzle', nameKey: 'games.logicPuzzle' },
@@ -56,6 +76,7 @@ module.exports = {
     {
       id: 'language',
       nameKey: 'categories.language',
+      icon: 'language',
       games: [
         { id: 'word-challenge', nameKey: 'games.wordChallenge' },
         { id: 'grammar-fix', nameKey: 'games.grammarFix' },
@@ -65,6 +86,7 @@ module.exports = {
     {
       id: 'math',
       nameKey: 'categories.math',
+      icon: 'math',
       games: [
         { id: 'quick-calculation', nameKey: 'games.quickCalculation' },
         { id: 'math-puzzle', nameKey: 'games.mathPuzzle' },

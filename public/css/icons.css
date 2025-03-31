@@ -1,0 +1,186 @@
+/**
+ * 大脑训练网站图标CSS文件
+ * 自定义图标和第三方图标的样式
+ */
+
+/* 图标基础样式 */
+.icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+  vertical-align: middle;
+}
+
+/* 图标大小变体 */
+.icon-xs {
+  width: 0.75em;
+  height: 0.75em;
+}
+
+.icon-sm {
+  width: 0.875em;
+  height: 0.875em;
+}
+
+.icon-md {
+  width: 1.25em;
+  height: 1.25em;
+}
+
+.icon-lg {
+  width: 1.5em;
+  height: 1.5em;
+}
+
+.icon-xl {
+  width: 2em;
+  height: 2em;
+}
+
+.icon-xxl {
+  width: 3em;
+  height: 3em;
+}
+
+/* 图标颜色变体 */
+.icon-primary {
+  color: #3490dc;
+}
+
+.icon-secondary {
+  color: #6c757d;
+}
+
+.icon-success {
+  color: #38c172;
+}
+
+.icon-danger {
+  color: #e3342f;
+}
+
+.icon-warning {
+  color: #ffed4a;
+}
+
+.icon-info {
+  color: #6cb2eb;
+}
+
+.icon-light {
+  color: #f8f9fa;
+}
+
+.icon-dark {
+  color: #343a40;
+}
+
+/* 导航图标 */
+.icon-nav {
+  margin-right: 0.5rem;
+}
+
+/* 按钮中的图标 */
+.btn .icon {
+  margin-right: 0.25rem;
+}
+
+.btn-icon-only .icon {
+  margin-right: 0;
+}
+
+/* 旋转动画 */
+.icon-spin {
+  animation: icon-spin 2s infinite linear;
+}
+
+@keyframes icon-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(359deg);
+  }
+}
+
+/* 脉动动画 */
+.icon-pulse {
+  animation: icon-pulse 1s infinite ease-in-out;
+}
+
+@keyframes icon-pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* 常用游戏图标 */
+.icon-memory {
+  background: url('/images/icons/memory.svg') no-repeat center;
+  background-size: contain;
+}
+
+.icon-attention {
+  background: url('/images/icons/attention.svg') no-repeat center;
+  background-size: contain;
+}
+
+.icon-logic {
+  background: url('/images/icons/logic.svg') no-repeat center;
+  background-size: contain;
+}
+
+.icon-language {
+  background: url('/images/icons/language.svg') no-repeat center;
+  background-size: contain;
+}
+
+.icon-math {
+  background: url('/images/icons/math.svg') no-repeat center;
+  background-size: contain;
+}
+
+/* 社交媒体图标 */
+.icon-facebook {
+  background: url('/images/icons/facebook.svg') no-repeat center;
+  background-size: contain;
+}
+
+.icon-twitter {
+  background: url('/images/icons/twitter.svg') no-repeat center;
+  background-size: contain;
+}
+
+.icon-instagram {
+  background: url('/images/icons/instagram.svg') no-repeat center;
+  background-size: contain;
+}
+
+.icon-linkedin {
+  background: url('/images/icons/linkedin.svg') no-repeat center;
+  background-size: contain;
+}
+
+/* RTL 支持 */
+[dir="rtl"] .icon-nav {
+  margin-right: 0;
+  margin-left: 0.5rem;
+}
+
+[dir="rtl"] .btn .icon {
+  margin-right: 0;
+  margin-left: 0.25rem;
+}
+
+[dir="rtl"] .btn-icon-only .icon {
+  margin-left: 0;
+} 

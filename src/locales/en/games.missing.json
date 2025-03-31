@@ -1,0 +1,12 @@
+{
+  "categories.memory.name": "categories.memory.name",
+  "categories.memory.description": "categories.memory.description",
+  "categories.attention.name": "categories.attention.name",
+  "categories.attention.description": "categories.attention.description",
+  "categories.logic.name": "categories.logic.name",
+  "categories.logic.description": "categories.logic.description",
+  "categories": "categories",
+  "logic": "logic",
+  "language": "language",
+  "math": "math"
+}

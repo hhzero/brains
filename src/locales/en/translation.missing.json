@@ -1,0 +1,10 @@
+{
+  "categories": {
+    "language": "categories.language",
+    "languageDescription": "categories.languageDescription",
+    "memory": "categories.memory",
+    "memoryDescription": "categories.memoryDescription",
+    "attention": "categories.attention",
+    "attentionDescription": "categories.attentionDescription"
+  }
+}

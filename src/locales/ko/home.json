@@ -1,0 +1,46 @@
+{
+  "heroTitle": "인지 능력 향상",
+  "heroDescription": "과학적으로 설계된 두뇌 훈련 게임으로 더 민첩한 사고와 뛰어난 기억력을 갖추세요",
+  "startTraining": "훈련 시작",
+  "learnMore": "자세히 보기",
+  "trainingPrograms": "훈련 프로그램",
+  "viewGames": "게임 보기",
+  "whyChooseUs": "우리를 선택하는 이유",
+  "features": {
+    "scientific": {
+      "title": "과학적 설계",
+      "description": "인지 과학 연구를 기반으로 훈련 효과 보장"
+    },
+    "personalized": {
+      "title": "맞춤형 훈련",
+      "description": "사용자의 성과에 따라 자동으로 난이도 조정"
+    },
+    "progress": {
+      "title": "진행 상황 추적",
+      "description": "훈련 과정을 상세히 기록"
+    },
+    "flexible": {
+      "title": "유연한 일정",
+      "description": "언제 어디서나 훈련 가능"
+    }
+  },
+  "userFeedback": "사용자 후기",
+  "testimonials": {
+    "default": {
+      "user1": {
+        "name": "이선생님",
+        "text": "매일 15분씩 훈련한 지 두 달 후, 기억력과 집중력이 눈에 띄게 향상되었습니다."
+      },
+      "user2": {
+        "name": "왕여사님",
+        "text": "게임 디자인이 너무 재미있어서 시간 가는 줄 모르고 훈련했습니다."
+      },
+      "user3": {
+        "name": "장교수님",
+        "text": "인지과학 연구자로서, 이 플랫폼의 훈련 방법이 매우 과학적이라고 생각합니다."
+      }
+    }
+  },
+  "ctaTitle": "지금 바로 두뇌 훈련을 시작하세요",
+  "ctaDescription": "하루 15분만으로 최상의 두뇌 상태를 유지하세요"
+} 

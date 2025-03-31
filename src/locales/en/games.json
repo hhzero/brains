@@ -136,5 +136,27 @@
     "noRecentGames": "No Recent Games",
     "game": "Game",
     "date": "Date",
-    "actions": "Actions"
+    "actions": "Actions",
+    "categories": {
+      "memory": {
+        "name": "Memory Training",
+        "description": "Enhance your memory capacity through engaging exercises"
+      },
+      "attention": {
+        "name": "Attention Training",
+        "description": "Improve your focus and concentration abilities"
+      },
+      "logic": {
+        "name": "Logic Training",
+        "description": "Develop your problem-solving and reasoning skills"
+      },
+      "language": {
+        "name": "Language Training",
+        "description": "Boost your verbal and communication abilities"
+      },
+      "math": {
+        "name": "Math Training",
+        "description": "Strengthen your numerical and calculation skills"
+      }
+    }
 } 

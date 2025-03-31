@@ -1,0 +1,25 @@
+<%- include('../partials/header') %>
+
+<main class="container">
+  <section class="categories-section">
+    <h1><%= t('games:allGames') %></h1>
+    <p class="section-description"><%= t('games:gamesDescription') %></p>
+
+    <div class="categories-grid">
+      <% config.gameCategories.forEach(category => { %>
+        <div class="category-card">
+          <div class="category-icon">
+            <img src="/images/icons/<%= category.icon %>.svg" alt="<%= t(`games:categories.${category.id}.name`) %>">
+          </div>
+          <h2><%= t(`games:categories.${category.id}.name`) %></h2>
+          <p><%= t(`games:categories.${category.id}.description`) %></p>
+          <a href="/games/category/<%= category.id %>" class="btn btn-primary">
+            <%= t('games:exploreCategory') %>
+          </a>
+        </div>
+      <% }); %>
+    </div>
+  </section>
+</main>
+
+<%- include('../partials/footer') %> 

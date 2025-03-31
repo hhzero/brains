@@ -11,22 +11,22 @@
     
     <!-- SEO 元标签 -->
     <meta name="robots" content="index, follow">
-    <meta name="author" content="<%= config.app.author %>">
-    <meta name="keywords" content="<%= locals.keywords || config.app.keywords %>">
+    <meta name="author" content="<%= config.app.author || '大脑训练网站' %>">
+    <meta name="keywords" content="<%= locals.keywords || '' %>">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="<%= config.app.url + (locals.currentUrl || '') %>">
+    <meta property="og:url" content="<%= locals.currentUrl || '' %>">
     <meta property="og:title" content="<%= locals.title %> | <%= config.app.name %>">
     <meta property="og:description" content="<%= locals.description || config.app.description %>">
-    <meta property="og:image" content="<%= locals.ogImage || config.app.ogImage %>">
+    <meta property="og:image" content="<%= locals.ogImage || '/images/og-image.png' %>">
     
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="<%= config.app.url + (locals.currentUrl || '') %>">
+    <meta property="twitter:url" content="<%= locals.currentUrl || '' %>">
     <meta property="twitter:title" content="<%= locals.title %> | <%= config.app.name %>">
     <meta property="twitter:description" content="<%= locals.description || config.app.description %>">
-    <meta property="twitter:image" content="<%= locals.ogImage || config.app.ogImage %>">
+    <meta property="twitter:image" content="<%= locals.ogImage || '/images/og-image.png' %>">
     
     <!-- 网站图标 -->
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
@@ -58,20 +58,17 @@
         "@context": "https://schema.org",
         "@type": "WebSite",
         "name": "<%= config.app.name %>",
-        "url": "<%= config.app.url %>",
-        "description": "<%= config.app.description %>",
-        "potentialAction": {
-            "@type": "SearchAction",
-            "target": "<%= config.app.url %>/search?q={search_term_string}",
-            "query-input": "required name=search_term_string"
-        }
+        "url": "<%= locals.currentUrl || '' %>",
+        "description": "<%= config.app.description %>"
     }
     </script>
+    
+    <%- style %>
 </head>
 <body class="<%= locals.bodyClass || '' %>">
     <!-- 屏幕阅读器跳过导航链接 -->
     <a href="#main-content" class="skip-to-content">
-        <%= t('common:skipToContent') %>
+        跳转到主要内容
     </a>
     
     <!-- 头部 -->
@@ -90,7 +87,6 @@
     <%- include('../partials/footer') %>
     
     <!-- JavaScript -->
-    <script src="/js/vendor/modernizr.min.js"></script>
     <script src="/js/main.js"></script>
     
     <!-- 页面特定的 JavaScript -->
@@ -101,8 +97,10 @@
     <% } %>
     
     <!-- 分析代码 -->
-    <% if (config.app.env === 'production' && config.analytics.enabled) { %>
+    <% if (process.env.NODE_ENV === 'production') { %>
         <%- include('../partials/analytics') %>
     <% } %>
+    
+    <%- script %>
 </body>
 </html> 

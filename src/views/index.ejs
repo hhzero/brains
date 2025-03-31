@@ -1,237 +1,176 @@
 <!-- 英雄区域 -->
-<section class="hero-section">
-    <div class="container">
-        <div class="hero-content">
-            <h1 class="hero-title"><%= t('home:heroTitle') %></h1>
-            <p class="hero-description"><%= t('home:heroDescription') %></p>
-            <div class="hero-buttons">
-                <a href="/games" class="btn btn-primary btn-lg">
-                    <%= t('home:startTraining') %>
-                </a>
-                <a href="/about" class="btn btn-outline btn-lg">
-                    <%= t('home:learnMore') %>
-                </a>
-            </div>
-        </div>
-        <div class="hero-image">
-            <img src="/images/hero-image.png" alt="<%= t('home:heroImageAlt') %>" class="main-image">
-            <div class="brain-particles"></div>
-        </div>
+<section class="hero bg-gradient-to-r from-blue-500 to-blue-700 text-white py-16">
+  <div class="container mx-auto px-4">
+    <div class="max-w-4xl mx-auto text-center">
+      <h1 class="text-4xl md:text-5xl font-bold mb-6"><%= t('home:heroTitle') %></h1>
+      <p class="text-xl mb-8"><%= t('home:heroDescription') %></p>
+      <div class="flex justify-center space-x-4">
+        <a href="/games" class="bg-white text-blue-600 hover:bg-blue-50 px-8 py-3 rounded-lg font-semibold transition duration-300">
+          <%= t('home:startTraining') %>
+        </a>
+        <a href="/about" class="border-2 border-white text-white hover:bg-white hover:text-blue-600 px-8 py-3 rounded-lg font-semibold transition duration-300">
+          <%= t('home:learnMore') %>
+        </a>
+      </div>
     </div>
+  </div>
 </section>
 
 <!-- 游戏分类 -->
-<section class="game-categories-section">
-    <div class="container">
-        <div class="section-header">
-            <h2 class="section-title"><%= t('home:exploreGames') %></h2>
-            <p class="section-description"><%= t('home:categoriesDescription') %></p>
+<section class="py-16 bg-gray-50">
+  <div class="container mx-auto px-4">
+    <h2 class="text-3xl font-bold text-center mb-12"><%= t('home:trainingPrograms') %></h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <% config.gameCategories.slice(0, 3).forEach(function(category) { %>
+        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition duration-300">
+          <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4 mx-auto">
+            <i class="icon icon-<%= category.id %> text-blue-600 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold text-center mb-3"><%= t(`games:categories.${category.id}.name`) %></h3>
+          <p class="text-gray-600 text-center mb-4"><%= t(`games:categories.${category.id}.description`) %></p>
+          <div class="text-center">
+            <a href="/games#<%= category.id %>" class="text-blue-600 hover:text-blue-700 font-medium">
+              <%= t('home:viewGames') %> →
+            </a>
+          </div>
         </div>
-        
-        <div class="categories-grid">
-            <!-- 记忆力游戏 -->
-            <div class="category-card">
-                <div class="category-icon">
-                    <span class="icon-brain"></span>
-                </div>
-                <h3 class="category-title"><%= t('games:memory') %></h3>
-                <p class="category-description"><%= t('games:memoryDescription') %></p>
-                <a href="/games/category/memory" class="category-link">
-                    <%= t('home:exploreCategory') %> <span class="icon-arrow-right"></span>
-                </a>
-            </div>
-            
-            <!-- 注意力游戏 -->
-            <div class="category-card">
-                <div class="category-icon">
-                    <span class="icon-focus"></span>
-                </div>
-                <h3 class="category-title"><%= t('games:attention') %></h3>
-                <p class="category-description"><%= t('games:attentionDescription') %></p>
-                <a href="/games/category/attention" class="category-link">
-                    <%= t('home:exploreCategory') %> <span class="icon-arrow-right"></span>
-                </a>
-            </div>
-            
-            <!-- 逻辑推理游戏 -->
-            <div class="category-card">
-                <div class="category-icon">
-                    <span class="icon-puzzle"></span>
-                </div>
-                <h3 class="category-title"><%= t('games:logic') %></h3>
-                <p class="category-description"><%= t('games:logicDescription') %></p>
-                <a href="/games/category/logic" class="category-link">
-                    <%= t('home:exploreCategory') %> <span class="icon-arrow-right"></span>
-                </a>
-            </div>
-            
-            <!-- 语言能力游戏 -->
-            <div class="category-card">
-                <div class="category-icon">
-                    <span class="icon-text"></span>
-                </div>
-                <h3 class="category-title"><%= t('games:language') %></h3>
-                <p class="category-description"><%= t('games:languageDescription') %></p>
-                <a href="/games/category/language" class="category-link">
-                    <%= t('home:exploreCategory') %> <span class="icon-arrow-right"></span>
-                </a>
-            </div>
-            
-            <!-- 数学游戏 -->
-            <div class="category-card">
-                <div class="category-icon">
-                    <span class="icon-calculator"></span>
-                </div>
-                <h3 class="category-title"><%= t('games:math') %></h3>
-                <p class="category-description"><%= t('games:mathDescription') %></p>
-                <a href="/games/category/math" class="category-link">
-                    <%= t('home:exploreCategory') %> <span class="icon-arrow-right"></span>
-                </a>
-            </div>
-        </div>
+      <% }); %>
     </div>
+  </div>
 </section>
 
-<!-- 特色内容 -->
-<section class="features-section">
-    <div class="container">
-        <div class="section-header">
-            <h2 class="section-title"><%= t('home:whyChooseUs') %></h2>
-            <p class="section-description"><%= t('home:featuresDescription') %></p>
+<!-- 特色功能 -->
+<section class="py-16">
+  <div class="container mx-auto px-4">
+    <h2 class="text-3xl font-bold text-center mb-12"><%= t('home:whyChooseUs') %></h2>
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div class="text-center">
+        <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4 mx-auto">
+          <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
         </div>
-        
-        <div class="features-grid">
-            <!-- 特色1：个性化训练 -->
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <span class="icon-user-check"></span>
-                </div>
-                <h3 class="feature-title"><%= t('home:personalizedTraining') %></h3>
-                <p class="feature-description"><%= t('home:personalizedDescription') %></p>
-            </div>
-            
-            <!-- 特色2：科学方法 -->
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <span class="icon-flask"></span>
-                </div>
-                <h3 class="feature-title"><%= t('home:scientificMethod') %></h3>
-                <p class="feature-description"><%= t('home:scientificDescription') %></p>
-            </div>
-            
-            <!-- 特色3：进度跟踪 -->
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <span class="icon-chart-line"></span>
-                </div>
-                <h3 class="feature-title"><%= t('home:progressTracking') %></h3>
-                <p class="feature-description"><%= t('home:progressDescription') %></p>
-            </div>
-            
-            <!-- 特色4：多平台支持 -->
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <span class="icon-devices"></span>
-                </div>
-                <h3 class="feature-title"><%= t('home:multiPlatform') %></h3>
-                <p class="feature-description"><%= t('home:multiPlatformDescription') %></p>
-            </div>
+        <h3 class="text-xl font-semibold mb-3"><%= t('home:features.scientific.title') %></h3>
+        <p class="text-gray-600"><%= t('home:features.scientific.description') %></p>
+      </div>
+      <div class="text-center">
+        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4 mx-auto">
+          <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+          </svg>
         </div>
+        <h3 class="text-xl font-semibold mb-3"><%= t('home:features.personalized.title') %></h3>
+        <p class="text-gray-600"><%= t('home:features.personalized.description') %></p>
+      </div>
+      <div class="text-center">
+        <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mb-4 mx-auto">
+          <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+          </svg>
+        </div>
+        <h3 class="text-xl font-semibold mb-3"><%= t('home:features.progress.title') %></h3>
+        <p class="text-gray-600"><%= t('home:features.progress.description') %></p>
+      </div>
+      <div class="text-center">
+        <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mb-4 mx-auto">
+          <svg class="w-8 h-8 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+        </div>
+        <h3 class="text-xl font-semibold mb-3"><%= t('home:features.flexible.title') %></h3>
+        <p class="text-gray-600"><%= t('home:features.flexible.description') %></p>
+      </div>
     </div>
+  </div>
 </section>
 
-<!-- 用户反馈 -->
-<section class="testimonials-section">
-    <div class="container">
-        <div class="section-header">
-            <h2 class="section-title"><%= t('home:userTestimonials') %></h2>
-            <p class="section-description"><%= t('home:testimonialsDescription') %></p>
-        </div>
-        
-        <div class="testimonials-slider">
-            <!-- 用户评价1 -->
-            <div class="testimonial-card">
-                <div class="testimonial-rating">
-                    <span class="icon-star"></span>
-                    <span class="icon-star"></span>
-                    <span class="icon-star"></span>
-                    <span class="icon-star"></span>
-                    <span class="icon-star"></span>
+<!-- 用户评价 -->
+<section class="py-16">
+  <div class="container mx-auto px-4">
+    <h2 class="text-3xl font-bold text-center mb-12"><%= t('home:userFeedback') %></h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <% try { %>
+        <% if (testimonials && testimonials.length > 0) { %>
+          <!-- 从API获取的评价 -->
+          <% testimonials.forEach(function(testimonial) { %>
+            <div class="bg-white rounded-lg shadow-md p-6">
+              <div class="flex items-center mb-4">
+                <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                  <%= testimonial.initial %>
                 </div>
-                <p class="testimonial-text"><%= t('home:testimonial1') %></p>
-                <div class="testimonial-author">
-                    <img src="/images/testimonials/user1.jpg" alt="Sarah Johnson" class="author-image">
-                    <div class="author-info">
-                        <h4 class="author-name">Sarah Johnson</h4>
-                        <p class="author-occupation"><%= t('home:user1Occupation') %></p>
-                    </div>
+                <div class="ml-4">
+                  <h4 class="font-semibold"><%= testimonial.name %></h4>
+                  <div class="text-yellow-400">★★★★★</div>
                 </div>
+              </div>
+              <p class="text-gray-600">"<%= testimonial.comment %>"</p>
             </div>
-            
-            <!-- 用户评价2 -->
-            <div class="testimonial-card">
-                <div class="testimonial-rating">
-                    <span class="icon-star"></span>
-                    <span class="icon-star"></span>
-                    <span class="icon-star"></span>
-                    <span class="icon-star"></span>
-                    <span class="icon-star"></span>
-                </div>
-                <p class="testimonial-text"><%= t('home:testimonial2') %></p>
-                <div class="testimonial-author">
-                    <img src="/images/testimonials/user2.jpg" alt="Michael Chen" class="author-image">
-                    <div class="author-info">
-                        <h4 class="author-name">Michael Chen</h4>
-                        <p class="author-occupation"><%= t('home:user2Occupation') %></p>
-                    </div>
-                </div>
+          <% }); %>
+        <% } else { %>
+          <!-- 默认评价 -->
+          <div class="bg-white rounded-lg shadow-md p-6">
+            <div class="flex items-center mb-4">
+              <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                <%= t('home:testimonials.default.user1.name').charAt(0) %>
+              </div>
+              <div class="ml-4">
+                <h4 class="font-semibold"><%= t('home:testimonials.default.user1.name') %></h4>
+                <div class="text-yellow-400">★★★★★</div>
+              </div>
             </div>
-            
-            <!-- 用户评价3 -->
-            <div class="testimonial-card">
-                <div class="testimonial-rating">
-                    <span class="icon-star"></span>
-                    <span class="icon-star"></span>
-                    <span class="icon-star"></span>
-                    <span class="icon-star"></span>
-                    <span class="icon-star-half"></span>
-                </div>
-                <p class="testimonial-text"><%= t('home:testimonial3') %></p>
-                <div class="testimonial-author">
-                    <img src="/images/testimonials/user3.jpg" alt="Emma Rodriguez" class="author-image">
-                    <div class="author-info">
-                        <h4 class="author-name">Emma Rodriguez</h4>
-                        <p class="author-occupation"><%= t('home:user3Occupation') %></p>
-                    </div>
-                </div>
+            <p class="text-gray-600">"<%= t('home:testimonials.default.user1.text') %>"</p>
+          </div>
+          <div class="bg-white rounded-lg shadow-md p-6">
+            <div class="flex items-center mb-4">
+              <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                <%= t('home:testimonials.default.user2.name').charAt(0) %>
+              </div>
+              <div class="ml-4">
+                <h4 class="font-semibold"><%= t('home:testimonials.default.user2.name') %></h4>
+                <div class="text-yellow-400">★★★★★</div>
+              </div>
             </div>
+            <p class="text-gray-600">"<%= t('home:testimonials.default.user2.text') %>"</p>
+          </div>
+          <div class="bg-white rounded-lg shadow-md p-6">
+            <div class="flex items-center mb-4">
+              <div class="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                <%= t('home:testimonials.default.user3.name').charAt(0) %>
+              </div>
+              <div class="ml-4">
+                <h4 class="font-semibold"><%= t('home:testimonials.default.user3.name') %></h4>
+                <div class="text-yellow-400">★★★★★</div>
+              </div>
+            </div>
+            <p class="text-gray-600">"<%= t('home:testimonials.default.user3.text') %>"</p>
+          </div>
+        <% } %>
+      <% } catch (error) { %>
+        <!-- 错误时显示默认评价 -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-xl">
+              <%= t('home:testimonials.default.user1.name').charAt(0) %>
+            </div>
+            <div class="ml-4">
+              <h4 class="font-semibold"><%= t('home:testimonials.default.user1.name') %></h4>
+              <div class="text-yellow-400">★★★★★</div>
+            </div>
+          </div>
+          <p class="text-gray-600">"<%= t('home:testimonials.default.user1.text') %>"</p>
         </div>
-        
-        <div class="testimonials-nav">
-            <button class="testimonial-prev" aria-label="<%= t('common:previous') %>">
-                <span class="icon-chevron-left"></span>
-            </button>
-            <button class="testimonial-next" aria-label="<%= t('common:next') %>">
-                <span class="icon-chevron-right"></span>
-            </button>
-        </div>
+      <% } %>
     </div>
+  </div>
 </section>
 
-<!-- 号召行动 -->
-<section class="cta-section">
-    <div class="container">
-        <div class="cta-content">
-            <h2 class="cta-title"><%= t('home:readyToStart') %></h2>
-            <p class="cta-description"><%= t('home:ctaDescription') %></p>
-            <div class="cta-buttons">
-                <a href="/auth/register" class="btn btn-primary btn-lg">
-                    <%= t('auth:registerNow') %>
-                </a>
-                <a href="/games" class="btn btn-outline btn-lg">
-                    <%= t('home:tryGames') %>
-                </a>
-            </div>
-        </div>
-    </div>
+<!-- 行动号召 -->
+<section class="py-16 bg-blue-600 text-white">
+  <div class="container mx-auto px-4 text-center">
+    <h2 class="text-3xl font-bold mb-6"><%= t('home:ctaTitle') %></h2>
+    <p class="text-xl mb-8"><%= t('home:ctaDescription') %></p>
+    <a href="/auth/register" class="bg-white text-blue-600 hover:bg-blue-50 px-8 py-3 rounded-lg font-semibold inline-block transition duration-300">
+      <%= t('auth:registerFree') %>
+    </a>
+  </div>
 </section> 

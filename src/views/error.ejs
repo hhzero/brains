@@ -1,0 +1,24 @@
+<div class="container mx-auto px-4 py-8">
+  <div class="text-center">
+    <h1 class="text-4xl font-bold text-gray-800 mb-4"><%= t('common:error.500.title') %></h1>
+    <p class="text-xl text-gray-600 mb-6"><%= t('common:error.500.message') %></p>
+    <div class="mb-8">
+      <svg class="mx-auto" width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M100 190C149.706 190 190 149.706 190 100C190 50.2944 149.706 10 100 10C50.2944 10 10 50.2944 10 100C10 149.706 50.2944 190 100 190Z" stroke="#E5E7EB" stroke-width="8"/>
+        <path d="M70 80C70 75.5817 73.5817 72 78 72C82.4183 72 86 75.5817 86 80C86 84.4183 82.4183 88 78 88C73.5817 88 70 84.4183 70 80Z" fill="#1F2937"/>
+        <path d="M114 80C114 75.5817 117.582 72 122 72C126.418 72 130 75.5817 130 80C130 84.4183 126.418 88 122 88C117.582 88 114 84.4183 114 80Z" fill="#1F2937"/>
+        <path d="M65 130C74.667 123.667 89.2 112.2 100 116C110.8 119.8 121.333 127.333 130 136" stroke="#1F2937" stroke-width="6" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <a href="/" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300">
+      <%= t('common:error.backToHome') %>
+    </a>
+    
+    <% if (error && Object.keys(error).length > 0) { %>
+      <div class="mt-8 p-4 bg-gray-100 rounded-lg text-left max-w-2xl mx-auto">
+        <h3 class="font-bold text-lg mb-2"><%= t('common:error.500.details') %></h3>
+        <pre class="bg-gray-200 p-3 rounded overflow-x-auto text-sm"><%= JSON.stringify(error, null, 2) %></pre>
+      </div>
+    <% } %>
+  </div>
+</div> 
