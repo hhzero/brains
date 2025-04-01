@@ -44,53 +44,53 @@ module.exports = {
   gameCategories: [
     {
       id: 'memory',
-      nameKey: 'categories.memory',
+      nameKey: 'games:categories.memory',
       icon: 'memory',
       games: [
-        { id: 'memory-card', nameKey: 'games.memoryCard' },
-        { id: 'number-memory', nameKey: 'games.numberMemory' },
-        { id: 'image-memory', nameKey: 'games.imageMemory' },
-        { id: 'n-back', nameKey: 'games.nBack' }
+        { id: 'memory-card', nameKey: 'games:memoryCard' },
+        { id: 'number-memory', nameKey: 'games:numberMemory' },
+        { id: 'image-memory', nameKey: 'games:imageMemory' },
+        { id: 'n-back', nameKey: 'games:nBack' }
       ]
     },
     {
       id: 'attention',
-      nameKey: 'categories.attention',
+      nameKey: 'games:categories.attention',
       icon: 'attention',
       games: [
-        { id: 'attention-focus', nameKey: 'games.attentionFocus' },
-        { id: 'color-match', nameKey: 'games.colorMatch' },
-        { id: 'target-tracking', nameKey: 'games.targetTracking' }
+        { id: 'attention-focus', nameKey: 'games:attentionFocus' },
+        { id: 'color-match', nameKey: 'games:colorMatch' },
+        { id: 'target-tracking', nameKey: 'games:targetTracking' }
       ]
     },
     {
       id: 'logic',
-      nameKey: 'categories.logic',
+      nameKey: 'games:categories.logic',
       icon: 'logic',
       games: [
-        { id: 'sudoku', nameKey: 'games.sudoku' },
-        { id: 'logic-puzzle', nameKey: 'games.logicPuzzle' },
-        { id: 'shape-puzzle', nameKey: 'games.shapePuzzle' }
+        { id: 'sudoku', nameKey: 'games:sudoku' },
+        { id: 'logic-puzzle', nameKey: 'games:logicPuzzle' },
+        { id: 'shape-puzzle', nameKey: 'games:shapePuzzle' }
       ]
     },
     {
       id: 'language',
-      nameKey: 'categories.language',
+      nameKey: 'games:categories.language',
       icon: 'language',
       games: [
-        { id: 'word-challenge', nameKey: 'games.wordChallenge' },
-        { id: 'grammar-fix', nameKey: 'games.grammarFix' },
-        { id: 'reading-comprehension', nameKey: 'games.readingComprehension' }
+        { id: 'word-challenge', nameKey: 'games:wordChallenge' },
+        { id: 'grammar-fix', nameKey: 'games:grammarFix' },
+        { id: 'reading-comprehension', nameKey: 'games:readingComprehension' }
       ]
     },
     {
       id: 'math',
-      nameKey: 'categories.math',
+      nameKey: 'games:categories.math',
       icon: 'math',
       games: [
-        { id: 'quick-calculation', nameKey: 'games.quickCalculation' },
-        { id: 'math-puzzle', nameKey: 'games.mathPuzzle' },
-        { id: 'geometry-calculation', nameKey: 'games.geometryCalculation' }
+        { id: 'quick-calculation', nameKey: 'games:quickCalculation' },
+        { id: 'math-puzzle', nameKey: 'games:mathPuzzle' },
+        { id: 'geometry-calculation', nameKey: 'games:geometryCalculation' }
       ]
     }
   ],

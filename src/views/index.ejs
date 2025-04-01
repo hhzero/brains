@@ -22,15 +22,15 @@
     <h2 class="text-3xl font-bold text-center mb-12"><%= t('home:trainingPrograms') %></h2>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
       <% config.gameCategories.slice(0, 3).forEach(function(category) { %>
-        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition duration-300">
-          <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4 mx-auto">
+        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition duration-300 flex flex-col items-center">
+          <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
             <i class="icon icon-<%= category.id %> text-blue-600 text-2xl"></i>
           </div>
           <h3 class="text-xl font-semibold text-center mb-3"><%= t(`games:categories.${category.id}.name`) %></h3>
-          <p class="text-gray-600 text-center mb-4"><%= t(`games:categories.${category.id}.description`) %></p>
-          <div class="text-center">
-            <a href="/games#<%= category.id %>" class="text-blue-600 hover:text-blue-700 font-medium">
-              <%= t('home:viewGames') %> →
+          <p class="text-gray-600 text-center mb-4 flex-grow"><%= t(`games:categories.${category.id}.description`) %></p>
+          <div class="text-center w-full mt-auto">
+            <a href="/games/category/<%= category.id %>" class="text-blue-600 hover:text-blue-700 font-medium inline-block">
+              <%= t('games:exploreCategory') %> →
             </a>
           </div>
         </div>
@@ -43,49 +43,49 @@
 <section class="py-16">
   <div class="container mx-auto px-4">
     <h2 class="text-3xl font-bold text-center mb-12"><%= t('home:whyChooseUs') %></h2>
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-      <div class="text-center">
-        <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4 mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div class="feature-card">
+        <div class="feature-icon bg-green-100">
           <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
           </svg>
         </div>
-        <h3 class="text-xl font-semibold mb-3"><%= t('home:features.scientific.title') %></h3>
-        <p class="text-gray-600"><%= t('home:features.scientific.description') %></p>
+        <h3 class="feature-title"><%= t('home:features.scientific.title') %></h3>
+        <p class="feature-description"><%= t('home:features.scientific.description') %></p>
       </div>
-      <div class="text-center">
-        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4 mx-auto">
+      <div class="feature-card">
+        <div class="feature-icon bg-blue-100">
           <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
           </svg>
         </div>
-        <h3 class="text-xl font-semibold mb-3"><%= t('home:features.personalized.title') %></h3>
-        <p class="text-gray-600"><%= t('home:features.personalized.description') %></p>
+        <h3 class="feature-title"><%= t('home:features.personalized.title') %></h3>
+        <p class="feature-description"><%= t('home:features.personalized.description') %></p>
       </div>
-      <div class="text-center">
-        <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mb-4 mx-auto">
+      <div class="feature-card">
+        <div class="feature-icon bg-purple-100">
           <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
           </svg>
         </div>
-        <h3 class="text-xl font-semibold mb-3"><%= t('home:features.progress.title') %></h3>
-        <p class="text-gray-600"><%= t('home:features.progress.description') %></p>
+        <h3 class="feature-title"><%= t('home:features.progress.title') %></h3>
+        <p class="feature-description"><%= t('home:features.progress.description') %></p>
       </div>
-      <div class="text-center">
-        <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mb-4 mx-auto">
+      <div class="feature-card">
+        <div class="feature-icon bg-yellow-100">
           <svg class="w-8 h-8 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
           </svg>
         </div>
-        <h3 class="text-xl font-semibold mb-3"><%= t('home:features.flexible.title') %></h3>
-        <p class="text-gray-600"><%= t('home:features.flexible.description') %></p>
+        <h3 class="feature-title"><%= t('home:features.flexible.title') %></h3>
+        <p class="feature-description"><%= t('home:features.flexible.description') %></p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- 用户评价 -->
-<section class="py-16">
+<section class="py-16 bg-gray-50">
   <div class="container mx-auto px-4">
     <h2 class="text-3xl font-bold text-center mb-12"><%= t('home:userFeedback') %></h2>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -93,7 +93,7 @@
         <% if (testimonials && testimonials.length > 0) { %>
           <!-- 从API获取的评价 -->
           <% testimonials.forEach(function(testimonial) { %>
-            <div class="bg-white rounded-lg shadow-md p-6">
+            <div class="bg-white rounded-lg shadow-md p-6 h-full flex flex-col">
               <div class="flex items-center mb-4">
                 <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-xl">
                   <%= testimonial.initial %>
@@ -103,12 +103,12 @@
                   <div class="text-yellow-400">★★★★★</div>
                 </div>
               </div>
-              <p class="text-gray-600">"<%= testimonial.comment %>"</p>
+              <p class="text-gray-600 flex-grow">"<%= testimonial.comment %>"</p>
             </div>
           <% }); %>
         <% } else { %>
           <!-- 默认评价 -->
-          <div class="bg-white rounded-lg shadow-md p-6">
+          <div class="bg-white rounded-lg shadow-md p-6 h-full flex flex-col">
             <div class="flex items-center mb-4">
               <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-xl">
                 <%= t('home:testimonials.default.user1.name').charAt(0) %>
@@ -118,9 +118,9 @@
                 <div class="text-yellow-400">★★★★★</div>
               </div>
             </div>
-            <p class="text-gray-600">"<%= t('home:testimonials.default.user1.text') %>"</p>
+            <p class="text-gray-600 flex-grow">"<%= t('home:testimonials.default.user1.text') %>"</p>
           </div>
-          <div class="bg-white rounded-lg shadow-md p-6">
+          <div class="bg-white rounded-lg shadow-md p-6 h-full flex flex-col">
             <div class="flex items-center mb-4">
               <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white font-bold text-xl">
                 <%= t('home:testimonials.default.user2.name').charAt(0) %>
@@ -130,9 +130,9 @@
                 <div class="text-yellow-400">★★★★★</div>
               </div>
             </div>
-            <p class="text-gray-600">"<%= t('home:testimonials.default.user2.text') %>"</p>
+            <p class="text-gray-600 flex-grow">"<%= t('home:testimonials.default.user2.text') %>"</p>
           </div>
-          <div class="bg-white rounded-lg shadow-md p-6">
+          <div class="bg-white rounded-lg shadow-md p-6 h-full flex flex-col">
             <div class="flex items-center mb-4">
               <div class="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold text-xl">
                 <%= t('home:testimonials.default.user3.name').charAt(0) %>
@@ -142,12 +142,12 @@
                 <div class="text-yellow-400">★★★★★</div>
               </div>
             </div>
-            <p class="text-gray-600">"<%= t('home:testimonials.default.user3.text') %>"</p>
+            <p class="text-gray-600 flex-grow">"<%= t('home:testimonials.default.user3.text') %>"</p>
           </div>
         <% } %>
       <% } catch (error) { %>
         <!-- 错误时显示默认评价 -->
-        <div class="bg-white rounded-lg shadow-md p-6">
+        <div class="bg-white rounded-lg shadow-md p-6 h-full flex flex-col">
           <div class="flex items-center mb-4">
             <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-xl">
               <%= t('home:testimonials.default.user1.name').charAt(0) %>
@@ -157,7 +157,7 @@
               <div class="text-yellow-400">★★★★★</div>
             </div>
           </div>
-          <p class="text-gray-600">"<%= t('home:testimonials.default.user1.text') %>"</p>
+          <p class="text-gray-600 flex-grow">"<%= t('home:testimonials.default.user1.text') %>"</p>
         </div>
       <% } %>
     </div>

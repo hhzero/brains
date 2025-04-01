@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation Bar Internationalization Demo</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f8f9fa;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #333;
+        }
+        .navbar-brand img {
+            height: 40px;
+            width: auto;
+        }
+        .brand-text {
+            font-weight: bold;
+            font-size: 18px;
+        }
+        .language-switcher {
+            display: flex;
+            gap: 10px;
+        }
+        .language-option {
+            padding: 5px 10px;
+            border-radius: 4px;
+            text-decoration: none;
+            color: #333;
+        }
+        .language-option:hover {
+            background-color: #e9ecef;
+        }
+        .language-option.active {
+            background-color: #4a90e2;
+            color: white;
+        }
+        .navbar-content {
+            margin: 50px 20px;
+        }
+        .navbar-example {
+            margin-bottom: 30px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .navbar-example.rtl {
+            direction: rtl;
+        }
+        [dir="rtl"] .navbar-brand {
+            flex-direction: row-reverse;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar-content">
+        <h1>导航栏国际化示例</h1>
+        
+        <!-- 英文 -->
+        <div class="navbar-example">
+            <div class="navbar">
+                <a href="/" class="navbar-brand">
+                    <img src="/images/logo.png" alt="Brain Trainer" width="40" height="40">
+                    <span class="brand-text">Brain Trainer</span>
+                </a>
+                <div class="language-switcher">
+                    <a href="#en" class="language-option active">English</a>
+                    <a href="#zh" class="language-option">中文</a>
+                    <a href="#ja" class="language-option">日本語</a>
+                    <a href="#ko" class="language-option">한국어</a>
+                    <a href="#ar" class="language-option">العربية</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 中文 -->
+        <div class="navbar-example">
+            <div class="navbar">
+                <a href="/" class="navbar-brand">
+                    <img src="/images/logo.png" alt="脑力训练师" width="40" height="40">
+                    <span class="brand-text">脑力训练师</span>
+                </a>
+                <div class="language-switcher">
+                    <a href="#en" class="language-option">English</a>
+                    <a href="#zh" class="language-option active">中文</a>
+                    <a href="#ja" class="language-option">日本語</a>
+                    <a href="#ko" class="language-option">한국어</a>
+                    <a href="#ar" class="language-option">العربية</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 日文 -->
+        <div class="navbar-example">
+            <div class="navbar">
+                <a href="/" class="navbar-brand">
+                    <img src="/images/logo.png" alt="ブレイントレーナー" width="40" height="40">
+                    <span class="brand-text">ブレイントレーナー</span>
+                </a>
+                <div class="language-switcher">
+                    <a href="#en" class="language-option">English</a>
+                    <a href="#zh" class="language-option">中文</a>
+                    <a href="#ja" class="language-option active">日本語</a>
+                    <a href="#ko" class="language-option">한국어</a>
+                    <a href="#ar" class="language-option">العربية</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 韩文 -->
+        <div class="navbar-example">
+            <div class="navbar">
+                <a href="/" class="navbar-brand">
+                    <img src="/images/logo.png" alt="브레인 트레이너" width="40" height="40">
+                    <span class="brand-text">브레인 트레이너</span>
+                </a>
+                <div class="language-switcher">
+                    <a href="#en" class="language-option">English</a>
+                    <a href="#zh" class="language-option">中文</a>
+                    <a href="#ja" class="language-option">日本語</a>
+                    <a href="#ko" class="language-option active">한국어</a>
+                    <a href="#ar" class="language-option">العربية</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 阿拉伯文 (RTL) -->
+        <div class="navbar-example rtl">
+            <div class="navbar" dir="rtl">
+                <a href="/" class="navbar-brand">
+                    <img src="/images/logo.png" alt="مدرب الدماغ" width="40" height="40">
+                    <span class="brand-text">مدرب الدماغ</span>
+                </a>
+                <div class="language-switcher">
+                    <a href="#en" class="language-option">English</a>
+                    <a href="#zh" class="language-option">中文</a>
+                    <a href="#ja" class="language-option">日本語</a>
+                    <a href="#ko" class="language-option">한국어</a>
+                    <a href="#ar" class="language-option active">العربية</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

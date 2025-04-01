@@ -14,6 +14,9 @@ document.addEventListener('DOMContentLoaded', function() {
   // 初始化语言切换器
   initLanguageSwitcher();
   
+  // 初始化用户菜单
+  initUserMenu();
+  
   // 添加图像懒加载
   initLazyLoading();
 });
@@ -39,6 +42,66 @@ function initMobileMenu() {
       }
     });
   }
+}
+
+/**
+ * 初始化语言切换器
+ */
+function initLanguageSwitcher() {
+  const switchers = document.querySelectorAll('.language-switcher');
+  
+  switchers.forEach(switcher => {
+    const options = switcher.nextElementSibling;
+    
+    if (options && options.classList.contains('language-options')) {
+      switcher.addEventListener('click', function(e) {
+        e.stopPropagation();
+        options.classList.toggle('hidden');
+      });
+      
+      // 点击语言选项时不关闭菜单
+      options.addEventListener('click', function(e) {
+        e.stopPropagation();
+      });
+    }
+  });
+  
+  // 点击页面其他区域关闭所有语言选项
+  document.addEventListener('click', function() {
+    document.querySelectorAll('.language-options').forEach(menu => {
+      menu.classList.add('hidden');
+    });
+  });
+}
+
+/**
+ * 初始化用户菜单
+ */
+function initUserMenu() {
+  const toggles = document.querySelectorAll('.user-menu-toggle');
+  
+  toggles.forEach(toggle => {
+    const menu = toggle.nextElementSibling;
+    
+    if (menu && menu.classList.contains('user-menu')) {
+      toggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        menu.classList.toggle('hidden');
+      });
+      
+      // 点击菜单选项时不关闭菜单
+      menu.addEventListener('click', function(e) {
+        e.stopPropagation();
+      });
+    }
+  });
+  
+  // 点击页面其他区域关闭所有用户菜单
+  document.addEventListener('click', function() {
+    document.querySelectorAll('.user-menu').forEach(menu => {
+      menu.classList.add('hidden');
+    });
+  });
 }
 
 /**
@@ -84,15 +147,28 @@ function closeNotification(notification) {
 function showNotification(message, type = 'info', duration = 5000) {
   const notificationsContainer = document.querySelector('.notifications-container');
   
-  if (!notificationsContainer) return;
+  if (!notificationsContainer) {
+    // 如果没有通知容器，则创建一个
+    const container = document.createElement('div');
+    container.className = 'notifications-container';
+    document.body.appendChild(container);
+    return showNotification(message, type, duration);
+  }
   
   const notification = document.createElement('div');
   notification.className = `notification notification-${type}`;
+  
+  // 获取关闭按钮文本的翻译
+  let closeLabel = '关闭';
+  if (typeof i18next !== 'undefined' && i18next.t) {
+    closeLabel = i18next.t('common:notification.close');
+  }
+  
   notification.innerHTML = `
     <div class="notification-content">
       <p>${message}</p>
     </div>
-    <button class="notification-close" aria-label="关闭">
+    <button class="notification-close" aria-label="${closeLabel}">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <line x1="18" y1="6" x2="6" y2="18"></line>
         <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -118,33 +194,6 @@ function showNotification(message, type = 'info', duration = 5000) {
   }
   
   return notification;
-}
-
-/**
- * 初始化语言切换器
- */
-function initLanguageSwitcher() {
-  const languageSwitcher = document.querySelector('.language-switcher');
-  const languageOptions = document.querySelector('.language-options');
-  
-  if (languageSwitcher && languageOptions) {
-    languageSwitcher.addEventListener('click', function(e) {
-      e.stopPropagation();
-      languageOptions.classList.toggle('hidden');
-    });
-    
-    // 点击页面其他位置关闭语言切换器
-    document.addEventListener('click', function() {
-      if (!languageOptions.classList.contains('hidden')) {
-        languageOptions.classList.add('hidden');
-      }
-    });
-    
-    // 阻止点击语言选项时关闭
-    languageOptions.addEventListener('click', function(e) {
-      e.stopPropagation();
-    });
-  }
 }
 
 /**
@@ -185,22 +234,37 @@ function validateForm(form) {
   let isValid = true;
   
   inputs.forEach(input => {
+    // 获取表单错误消息的翻译
+    let requiredMessage = '此字段为必填项';
+    let invalidEmailMessage = '请输入有效的电子邮箱地址';
+    let passwordLengthMessage = `密码至少需要{0}个字符`;
+    
+    if (typeof i18next !== 'undefined' && i18next.t) {
+      requiredMessage = i18next.t('auth:errors.requiredField');
+      invalidEmailMessage = i18next.t('auth:errors.invalidEmail');
+      passwordLengthMessage = i18next.t('auth:errors.invalidPassword');
+    }
+    
     if (!input.value.trim()) {
       isValid = false;
-      showInputError(input, '此字段为必填项');
+      showInputError(input, requiredMessage);
     } else {
       clearInputError(input);
       
       // 邮箱验证
       if (input.type === 'email' && !validateEmail(input.value)) {
         isValid = false;
-        showInputError(input, '请输入有效的电子邮箱地址');
+        showInputError(input, invalidEmailMessage);
       }
       
       // 密码验证
       if (input.type === 'password' && input.dataset.minLength && input.value.length < parseInt(input.dataset.minLength)) {
         isValid = false;
-        showInputError(input, `密码至少需要${input.dataset.minLength}个字符`);
+        let message = passwordLengthMessage;
+        if (passwordLengthMessage.includes('{0}')) {
+          message = passwordLengthMessage.replace('{0}', input.dataset.minLength);
+        }
+        showInputError(input, message);
       }
     }
   });

@@ -1,128 +1,126 @@
-<header class="bg-white shadow-sm">
-  <div class="container mx-auto px-4 py-3">
-    <div class="flex justify-between items-center">
-      <!-- 网站Logo -->
-      <a href="/" class="flex items-center">
-        <img src="/images/logo.png" alt="大脑训练网站" class="h-10 w-auto">
-        <span class="ml-2 text-xl font-bold text-gray-800">大脑训练</span>
-      </a>
-      
-      <!-- 桌面导航 -->
-      <nav class="hidden md:flex space-x-6">
-        <a href="/" class="text-gray-700 hover:text-blue-600 px-2 py-1 rounded">首页</a>
-        <a href="/games" class="text-gray-700 hover:text-blue-600 px-2 py-1 rounded">游戏</a>
-        <a href="/games/leaderboard" class="text-gray-700 hover:text-blue-600 px-2 py-1 rounded">排行榜</a>
-        <a href="/about" class="text-gray-700 hover:text-blue-600 px-2 py-1 rounded">关于我们</a>
-        <a href="/contact" class="text-gray-700 hover:text-blue-600 px-2 py-1 rounded">联系我们</a>
-      </nav>
-      
-      <!-- 用户菜单 -->
-      <div class="hidden md:flex items-center space-x-4">
-        <!-- 语言切换器 -->
-        <div class="relative">
-          <button class="language-switcher flex items-center text-gray-700 hover:text-blue-600 px-2 py-1 rounded">
-            <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path>
-            </svg>
-            <span>语言</span>
-          </button>
-          
-          <div class="language-options absolute right-0 mt-2 py-2 w-48 bg-white rounded-md shadow-xl z-10 hidden">
-            <a href="/language/en" class="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white">English</a>
-            <a href="/language/zh" class="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white">中文</a>
-            <a href="/language/ja" class="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white">日本語</a>
-            <a href="/language/ko" class="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white">한국어</a>
-            <a href="/language/ar" class="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white">العربية</a>
-          </div>
-        </div>
+<header class="navbar">
+  <div class="container navbar-container">
+    <!-- 网站Logo -->
+    <a href="/" class="navbar-brand">
+      <img src="/images/logo.png" alt="<%= t('common:siteName') %>" width="40" height="40">
+      <span class="brand-text"><%= t('common:siteName') %></span>
+    </a>
+    
+    <!-- 桌面导航 -->
+    <nav class="navbar-nav d-none d-md-flex">
+      <a href="/" class="nav-link"><%= t('common:home') %></a>
+      <a href="/games" class="nav-link"><%= t('common:games') %></a>
+      <a href="/games/leaderboard" class="nav-link"><%= t('common:leaderboard') %></a>
+      <a href="/about" class="nav-link"><%= t('common:about') %></a>
+      <a href="/contact" class="nav-link"><%= t('common:contact') %></a>
+    </nav>
+    
+    <!-- 用户菜单 -->
+    <div class="user-section d-none d-md-flex">
+      <!-- 语言切换器 -->
+      <div class="language-switcher-wrapper">
+        <button class="language-switcher">
+          <svg class="icon" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path>
+          </svg>
+          <span><%= t('common:language') %></span>
+        </button>
         
-        <!-- 未登录状态 -->
-        <% if (!locals.user) { %>
-        <a href="/auth/login" class="text-gray-700 hover:text-blue-600 px-2 py-1 rounded">登录</a>
-        <a href="/auth/register" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">注册</a>
-        <% } else { %>
-        <!-- 已登录状态 -->
-        <div class="relative">
-          <button class="user-menu-toggle flex items-center text-gray-700 hover:text-blue-600 px-2 py-1 rounded">
-            <% if (locals.user.avatar) { %>
-            <img src="<%= locals.user.avatar %>" alt="<%= locals.user.username %>" class="w-8 h-8 rounded-full mr-2">
-            <% } else { %>
-            <div class="w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center mr-2">
-              <%= locals.user.username.charAt(0).toUpperCase() %>
-            </div>
-            <% } %>
-            <span><%= locals.user.username %></span>
-            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-            </svg>
-          </button>
-          
-          <div class="user-menu absolute right-0 mt-2 py-2 w-48 bg-white rounded-md shadow-xl z-10 hidden">
-            <a href="/user/profile" class="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white">个人资料</a>
-            <a href="/user/history" class="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white">游戏记录</a>
-            <a href="/user/settings" class="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white">设置</a>
-            <div class="border-t border-gray-200 my-1"></div>
-            <a href="/auth/logout" class="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white">退出登录</a>
-          </div>
-        </div>
-        <% } %>
-      </div>
-      
-      <!-- 移动端菜单按钮 -->
-      <button class="md:hidden mobile-menu-toggle">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-        </svg>
-      </button>
-    </div>
-  </div>
-  
-  <!-- 移动端导航菜单 -->
-  <div class="mobile-menu md:hidden hidden">
-    <div class="px-2 pt-2 pb-3 space-y-1">
-      <a href="/" class="block px-3 py-2 rounded text-gray-700 hover:bg-blue-500 hover:text-white">首页</a>
-      <a href="/games" class="block px-3 py-2 rounded text-gray-700 hover:bg-blue-500 hover:text-white">游戏</a>
-      <a href="/games/leaderboard" class="block px-3 py-2 rounded text-gray-700 hover:bg-blue-500 hover:text-white">排行榜</a>
-      <a href="/about" class="block px-3 py-2 rounded text-gray-700 hover:bg-blue-500 hover:text-white">关于我们</a>
-      <a href="/contact" class="block px-3 py-2 rounded text-gray-700 hover:bg-blue-500 hover:text-white">联系我们</a>
-      
-      <div class="border-t border-gray-200 my-2"></div>
-      
-      <!-- 语言选择 -->
-      <div class="px-3 py-2">
-        <div class="text-gray-500 text-sm mb-2">选择语言</div>
-        <div class="space-y-1">
-          <a href="/language/en" class="block px-3 py-2 rounded text-gray-700 hover:bg-blue-500 hover:text-white">English</a>
-          <a href="/language/zh" class="block px-3 py-2 rounded text-gray-700 hover:bg-blue-500 hover:text-white">中文</a>
-          <a href="/language/ja" class="block px-3 py-2 rounded text-gray-700 hover:bg-blue-500 hover:text-white">日本語</a>
-          <a href="/language/ko" class="block px-3 py-2 rounded text-gray-700 hover:bg-blue-500 hover:text-white">한국어</a>
-          <a href="/language/ar" class="block px-3 py-2 rounded text-gray-700 hover:bg-blue-500 hover:text-white">العربية</a>
+        <div class="language-options hidden">
+          <a href="/language/en" class="language-option">English</a>
+          <a href="/language/zh" class="language-option">中文</a>
+          <a href="/language/ja" class="language-option">日本語</a>
+          <a href="/language/ko" class="language-option">한국어</a>
+          <a href="/language/ar" class="language-option">العربية</a>
         </div>
       </div>
       
-      <div class="border-t border-gray-200 my-2"></div>
-      
-      <!-- 用户相关 -->
+      <!-- 未登录状态 -->
       <% if (!locals.user) { %>
-      <a href="/auth/login" class="block px-3 py-2 rounded text-gray-700 hover:bg-blue-500 hover:text-white">登录</a>
-      <a href="/auth/register" class="block px-3 py-2 rounded text-gray-700 hover:bg-blue-500 hover:text-white">注册</a>
+      <a href="/auth/login" class="nav-link"><%= t('common:login') %></a>
+      <a href="/auth/register" class="btn btn-primary"><%= t('common:register') %></a>
       <% } else { %>
-      <div class="px-3 py-2">
-        <div class="flex items-center mb-2">
+      <!-- 已登录状态 -->
+      <div class="user-menu-wrapper">
+        <button class="user-menu-toggle">
           <% if (locals.user.avatar) { %>
-          <img src="<%= locals.user.avatar %>" alt="<%= locals.user.username %>" class="w-8 h-8 rounded-full mr-2">
+          <img src="<%= locals.user.avatar %>" alt="<%= locals.user.username %>" class="user-avatar">
           <% } else { %>
-          <div class="w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center mr-2">
+          <div class="user-avatar-placeholder">
             <%= locals.user.username.charAt(0).toUpperCase() %>
           </div>
           <% } %>
-          <span class="text-gray-700"><%= locals.user.username %></span>
+          <span><%= locals.user.username %></span>
+          <svg class="icon-sm" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </button>
+        
+        <div class="user-menu hidden">
+          <a href="/user/profile" class="user-menu-item"><%= t('common:profile') %></a>
+          <a href="/user/history" class="user-menu-item"><%= t('games:historyTitle') %></a>
+          <a href="/user/settings" class="user-menu-item"><%= t('common:settings') %></a>
+          <div class="menu-divider"></div>
+          <a href="/auth/logout" class="user-menu-item"><%= t('common:logout') %></a>
         </div>
-        <div class="space-y-1">
-          <a href="/user/profile" class="block px-3 py-2 rounded text-gray-700 hover:bg-blue-500 hover:text-white">个人资料</a>
-          <a href="/user/history" class="block px-3 py-2 rounded text-gray-700 hover:bg-blue-500 hover:text-white">游戏记录</a>
-          <a href="/user/settings" class="block px-3 py-2 rounded text-gray-700 hover:bg-blue-500 hover:text-white">设置</a>
-          <a href="/auth/logout" class="block px-3 py-2 rounded text-gray-700 hover:bg-blue-500 hover:text-white">退出登录</a>
+      </div>
+      <% } %>
+    </div>
+    
+    <!-- 移动端菜单按钮 -->
+    <button class="mobile-menu-toggle d-md-none">
+      <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+      </svg>
+    </button>
+  </div>
+  
+  <!-- 移动端导航菜单 -->
+  <div class="mobile-menu d-md-none hidden">
+    <div class="mobile-menu-content">
+      <a href="/" class="mobile-menu-item"><%= t('common:home') %></a>
+      <a href="/games" class="mobile-menu-item"><%= t('common:games') %></a>
+      <a href="/games/leaderboard" class="mobile-menu-item"><%= t('common:leaderboard') %></a>
+      <a href="/about" class="mobile-menu-item"><%= t('common:about') %></a>
+      <a href="/contact" class="mobile-menu-item"><%= t('common:contact') %></a>
+      
+      <div class="menu-divider"></div>
+      
+      <!-- 语言选择 -->
+      <div class="mobile-submenu">
+        <div class="submenu-title"><%= t('common:selectLanguage') %></div>
+        <div class="submenu-content">
+          <a href="/language/en" class="mobile-menu-item">English</a>
+          <a href="/language/zh" class="mobile-menu-item">中文</a>
+          <a href="/language/ja" class="mobile-menu-item">日本語</a>
+          <a href="/language/ko" class="mobile-menu-item">한국어</a>
+          <a href="/language/ar" class="mobile-menu-item">العربية</a>
+        </div>
+      </div>
+      
+      <div class="menu-divider"></div>
+      
+      <!-- 用户相关 -->
+      <% if (!locals.user) { %>
+      <a href="/auth/login" class="mobile-menu-item"><%= t('common:login') %></a>
+      <a href="/auth/register" class="mobile-menu-item highlight"><%= t('common:register') %></a>
+      <% } else { %>
+      <div class="mobile-submenu">
+        <div class="user-info">
+          <% if (locals.user.avatar) { %>
+          <img src="<%= locals.user.avatar %>" alt="<%= locals.user.username %>" class="user-avatar">
+          <% } else { %>
+          <div class="user-avatar-placeholder">
+            <%= locals.user.username.charAt(0).toUpperCase() %>
+          </div>
+          <% } %>
+          <span><%= locals.user.username %></span>
+        </div>
+        <div class="submenu-content">
+          <a href="/user/profile" class="mobile-menu-item"><%= t('common:profile') %></a>
+          <a href="/user/history" class="mobile-menu-item"><%= t('games:historyTitle') %></a>
+          <a href="/user/settings" class="mobile-menu-item"><%= t('common:settings') %></a>
+          <a href="/auth/logout" class="mobile-menu-item"><%= t('common:logout') %></a>
         </div>
       </div>
       <% } %>
